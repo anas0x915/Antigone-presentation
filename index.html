@@ -1,0 +1,2862 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Antigone · Jean Anouilh</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+/* ─────────────────────────────────────────
+   RESET
+───────────────────────────────────────── */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden;font-size:18px}
+
+:root{
+  /* Palette */
+  --bg:       #f9f5ee;
+  --bg2:      #f2ebe0;
+  --bg3:      #e8dece;
+  --navy:     #0d1b3e;
+  --navy2:    #162550;
+  --navy3:    #1e3268;
+  --gold:     #b87820;
+  --gold2:    #cc8f28;
+  --gold3:    #e8b040;
+  --red:      #8a1c1c;
+  --red2:     #b02828;
+  /* Text — high contrast, no brown tint */
+  --text:     #111111;
+  --text2:    #1e2a1e;
+  --text3:    #3a3a3a;
+  --text4:    #777777;
+  --white:    #ffffff;
+  --divider:  rgba(13,27,62,.1);
+  --divider2: rgba(13,27,62,.2);
+  --gd:       rgba(184,120,32,.15);
+  --gd2:      rgba(184,120,32,.35);
+
+  --fd:'Playfair Display',Georgia,serif;
+  --fc:'Cormorant Garamond',Georgia,serif;
+  --fm:'Montserrat',system-ui,sans-serif;
+
+  --ease:cubic-bezier(.16,1,.3,1);
+  --easeIn:cubic-bezier(.55,0,1,.45);
+  --dur:.82s;
+}
+
+html,body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--fc);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+}
+
+/* ─────────────────────────────────────────
+   OUTER WRAPPER / TRACK
+───────────────────────────────────────── */
+#outer{width:100%;height:100vh;height:100dvh;overflow:hidden;position:relative}
+#track{
+  display:flex;height:100%;
+  will-change:transform;
+  transition:transform var(--dur) var(--ease);
+}
+
+/* ─────────────────────────────────────────
+   SLIDE BASE
+───────────────────────────────────────── */
+.slide{
+  flex-shrink:0;
+  width:100vw;
+  height:100vh;
+  height:100dvh;
+  position:relative;display:flex;overflow:hidden;
+}
+
+/* Text reveal */
+.slide .v{
+  opacity:0;transform:translateY(32px);
+  transition:opacity .72s var(--ease),transform .72s var(--ease);
+}
+.slide.active .v{opacity:1;transform:translateY(0)}
+.slide.active .v:nth-child(1){transition-delay:.06s}
+.slide.active .v:nth-child(2){transition-delay:.16s}
+.slide.active .v:nth-child(3){transition-delay:.26s}
+.slide.active .v:nth-child(4){transition-delay:.36s}
+.slide.active .v:nth-child(5){transition-delay:.46s}
+.slide.active .v:nth-child(6){transition-delay:.56s}
+.slide.active .v:nth-child(7){transition-delay:.66s}
+.slide.active .v:nth-child(8){transition-delay:.76s}
+.slide.active .v:nth-child(9){transition-delay:.86s}
+.slide.active .v:nth-child(10){transition-delay:.96s}
+
+/* Growing line */
+.grow-line{
+  height:2px;width:0;
+  background:linear-gradient(90deg,var(--gold),var(--gold3));
+  transition:width .9s var(--ease) .35s;
+}
+.slide.active .grow-line{width:100%}
+
+/* ─────────────────────────────────────────
+   ══ SLIDE 0 — COUVERTURE ══
+───────────────────────────────────────── */
+#s0{
+  flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;
+  background:var(--navy);
+  overflow:hidden;
+}
+/* Diagonal gold stripe */
+#s0::before{
+  content:'';position:absolute;
+  top:-30%;right:-10%;
+  width:55%;height:200%;
+  background:linear-gradient(to bottom,rgba(184,120,32,.08),rgba(184,120,32,.03));
+  transform:skewX(-18deg);pointer-events:none;
+}
+/* Grid */
+#s0::after{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(184,120,32,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(184,120,32,.04) 1px,transparent 1px);
+  background-size:64px 64px;pointer-events:none;
+}
+.s0-corners span{
+  position:absolute;width:52px;height:52px;
+}
+.s0-corners .tl{top:2rem;left:2rem;border-top:1.5px solid rgba(184,120,32,.4);border-left:1.5px solid rgba(184,120,32,.4)}
+.s0-corners .tr{top:2rem;right:2rem;border-top:1.5px solid rgba(184,120,32,.4);border-right:1.5px solid rgba(184,120,32,.4)}
+.s0-corners .bl{bottom:2rem;left:2rem;border-bottom:1.5px solid rgba(184,120,32,.4);border-left:1.5px solid rgba(184,120,32,.4)}
+.s0-corners .br{bottom:2rem;right:2rem;border-bottom:1.5px solid rgba(184,120,32,.4);border-right:1.5px solid rgba(184,120,32,.4)}
+
+.s0-tag{
+  font-family:var(--fm);font-size:.66rem;font-weight:500;
+  letter-spacing:.7em;text-transform:uppercase;
+  color:var(--gold);opacity:.65;
+  margin-bottom:2rem;position:relative;z-index:1;
+}
+.s0-title{
+  font-family:var(--fd);font-weight:900;font-style:italic;
+  font-size:clamp(5rem,12vw,10rem);
+  line-height:.82;letter-spacing:-.025em;
+  background:linear-gradient(148deg,#fff 0%,#f5e8cc 22%,var(--gold3) 50%,var(--gold2) 72%,#7a500e 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 6px 55px rgba(184,120,32,.2));
+  position:relative;z-index:1;
+}
+.s0-rule{
+  display:flex;align-items:center;gap:1.1rem;
+  width:100%;max-width:480px;margin:2rem auto;
+  position:relative;z-index:1;
+}
+.s0-rline{flex:1;height:1px;background:linear-gradient(to right,transparent,rgba(184,120,32,.45),transparent)}
+.s0-gems{display:flex;gap:5px;align-items:center}
+.gem{display:block;transform:rotate(45deg)}
+.gem-g{width:8px;height:8px;background:var(--gold)}
+.gem-s{width:5px;height:5px;background:rgba(255,255,255,.35)}
+
+.s0-author{
+  font-family:var(--fm);font-size:.78rem;font-weight:500;
+  letter-spacing:.45em;text-transform:uppercase;
+  color:rgba(249,245,238,.72);margin-bottom:.5rem;
+  position:relative;z-index:1;
+}
+.s0-sub{
+  font-family:var(--fd);font-style:italic;font-size:1.15rem;font-weight:400;
+  color:rgba(249,245,238,.6);margin-bottom:2.8rem;
+  position:relative;z-index:1;
+}
+.s0-chips{
+  display:flex;gap:0;
+  border:1px solid rgba(184,120,32,.15);
+  position:relative;z-index:1;
+  background:rgba(255,255,255,.03);
+}
+.chip{
+  padding:.85rem 1.8rem;
+  border-right:1px solid rgba(184,120,32,.12);
+  text-align:center;transition:background .3s;
+}
+.chip:last-child{border-right:none}
+.chip:hover{background:rgba(184,120,32,.08)}
+.chipv{
+  font-family:var(--fd);font-size:1.35rem;
+  color:var(--gold2);line-height:1;margin-bottom:.25rem;
+}
+.chipk{
+  font-family:var(--fm);font-size:.5rem;font-weight:500;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(249,245,238,.3);
+}
+
+/* ─────────────────────────────────────────
+   ══ INTRO LAYOUT (slide 1 only) ══
+───────────────────────────────────────── */
+#s1{flex-direction:column;align-items:stretch;background:var(--bg);height:100%;overflow:hidden}
+
+.intro-bar{
+  height:4px;
+  background:linear-gradient(90deg,var(--red),var(--gold2),var(--gold3));
+  flex-shrink:0;
+}
+.intro-inner{
+  flex:1;min-height:0;display:flex;flex-direction:column;
+  justify-content:center;
+  padding:3.5rem 5vw 2rem;max-width:1100px;
+  margin:0 auto;width:100%;
+  overflow-y:auto;
+  scrollbar-width:thin;scrollbar-color:var(--bg3) transparent;
+}
+.intro-inner::-webkit-scrollbar{width:3px}
+.intro-inner::-webkit-scrollbar-thumb{background:var(--bg3)}
+.intro-flag{
+  font-family:var(--fm);font-size:.6rem;font-weight:600;
+  letter-spacing:.5em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1.2rem;
+}
+.intro-head{
+  font-family:var(--fd);font-weight:900;font-style:italic;
+  font-size:clamp(2.2rem,5vw,3.8rem);
+  color:var(--navy);line-height:1.05;
+  margin-bottom:.4rem;
+}
+.intro-rule-wrap{margin-bottom:2.2rem}
+.intro-notice{
+  background:var(--navy);
+  color:#f0e8d8;
+  padding:1.6rem 2rem;
+  font-family:var(--fd);font-style:italic;font-size:1.08rem;
+  line-height:1.82;
+  border-left:4px solid var(--gold2);
+  margin-bottom:2rem;
+}
+.intro-notice em{color:var(--gold3);font-style:italic}
+.intro-body{
+  font-family:var(--fc);
+  font-size:1.18rem;
+  font-style:normal;
+  font-weight:500;
+  line-height:1.78;
+  color:var(--text);
+  letter-spacing:.012em;
+}
+.intro-body p{margin-bottom:1.1rem}
+.intro-body strong{color:var(--navy);font-weight:800}
+.intro-body em{color:var(--red);font-style:italic;font-weight:700}
+
+/* ─────────────────────────────────────────
+   ══ SCENE SLIDES (2–12) ══
+───────────────────────────────────────── */
+.scene-slide{
+  display:grid;
+  grid-template-columns:260px 1fr;
+  grid-template-rows:100%;
+  width:100%;
+  height:100%;
+  background:var(--bg);
+  overflow:hidden;
+}
+
+/* Sidebar */
+.ss-side{
+  position:relative;overflow:hidden;
+  display:flex;flex-direction:column;
+  justify-content:space-between;
+  height:100%;min-height:0;
+  border-right:1px solid var(--divider);
+}
+.ss-side-top{height:4px;flex-shrink:0}
+.ss-side-inner{
+  padding:2.8rem 2rem;flex:1;min-height:0;
+  display:flex;flex-direction:column;
+  justify-content:center;
+  position:relative;z-index:1;
+}
+
+/* Ghost numeral */
+.ghost{
+  position:absolute;bottom:-2rem;left:-1rem;
+  font-family:var(--fd);font-weight:900;font-style:italic;
+  font-size:13rem;
+  color:rgba(13,27,62,.055);
+  line-height:1;pointer-events:none;user-select:none;
+}
+
+.ss-step{
+  font-family:var(--fm);font-size:.56rem;font-weight:600;
+  letter-spacing:.55em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:.45rem;
+}
+.ss-num{
+  font-family:var(--fd);font-style:italic;font-weight:700;
+  font-size:2.6rem;color:var(--navy);
+  line-height:1;margin-bottom:.5rem;
+}
+.ss-stitle{
+  font-family:var(--fd);font-style:italic;font-weight:600;
+  font-size:1.08rem;color:var(--navy);line-height:1.4;
+  margin-bottom:auto;padding-bottom:1.5rem;
+}
+.ss-chars-lbl{
+  font-family:var(--fm);font-size:.54rem;font-weight:700;
+  letter-spacing:.3em;text-transform:uppercase;
+  color:var(--text3);
+  border-top:1px solid var(--divider);
+  padding-top:1.2rem;margin-bottom:.65rem;
+}
+.ss-char{
+  font-family:var(--fc);font-style:italic;
+  font-size:1rem;font-weight:500;
+  color:var(--text);margin-bottom:.3rem;
+  display:flex;align-items:center;gap:.5rem;
+}
+.ss-char::before{
+  content:'';width:5px;height:5px;
+  background:var(--gold2);transform:rotate(45deg);
+  flex-shrink:0;opacity:.9;
+}
+
+/* Main area */
+.ss-main{
+  padding:2.8rem 3.5rem;
+  overflow-y:auto;
+  height:100%;min-height:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  scrollbar-width:thin;scrollbar-color:var(--bg3) transparent;
+}
+.ss-main::-webkit-scrollbar{width:3px}
+.ss-main::-webkit-scrollbar-thumb{background:var(--bg3);border-radius:2px}
+
+.ss-eyebrow{
+  font-family:var(--fm);font-size:.56rem;font-weight:600;
+  letter-spacing:.48em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:.65rem;
+}
+.ss-heading{
+  font-family:var(--fd);font-weight:900;
+  font-size:clamp(1.6rem,2.8vw,2.3rem);
+  color:var(--navy);line-height:1.12;
+  letter-spacing:-.015em;
+  margin-bottom:.7rem;
+}
+.ss-gl{margin-bottom:1.8rem}
+.ss-body{
+  font-family:var(--fc);
+  font-size:1.2rem;
+  font-style:normal;
+  font-weight:500;
+  line-height:1.78;
+  color:var(--text);
+  letter-spacing:.012em;
+}
+.ss-body p{margin-bottom:1.1rem}
+.ss-body p:last-child{margin-bottom:0}
+.ss-body strong{color:var(--navy);font-weight:800}
+.ss-body em{color:var(--red);font-style:italic;font-weight:700}
+
+.callout{
+  background:var(--navy);
+  color:#f5efe6;
+  padding:1.3rem 1.8rem;margin:1.5rem 0;
+  font-family:var(--fd);font-style:italic;
+  font-size:1.18rem;font-weight:600;
+  line-height:1.7;
+  border-left:4px solid var(--gold2);
+}
+.callout cite{
+  display:block;
+  font-family:var(--fm);font-style:normal;font-size:.6rem;
+  font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--gold2);margin-top:.5rem;opacity:1;
+}
+.pts{list-style:none;margin:.8rem 0}
+.pts li{
+  font-family:var(--fc);font-size:1.12rem;
+  font-style:normal;font-weight:400;
+  line-height:1.72;
+  color:var(--text);padding:.45rem 0 .45rem 1.4rem;
+  position:relative;
+  border-bottom:1px solid rgba(13,27,62,.06);
+}
+.pts li:last-child{border-bottom:none}
+.pts li::before{
+  content:'';position:absolute;left:0;top:50%;
+  transform:translateY(-50%) rotate(45deg);
+  width:5px;height:5px;background:var(--gold2);opacity:.8;
+}
+.pts li strong{color:var(--navy);font-weight:700}
+
+/* Slide color accents for sidebar top + ghost */
+/* Each scene gets a distinct left-panel background */
+.scene-slide.s-blue  .ss-side{background:linear-gradient(175deg,#f0f4fa 0%,var(--bg) 100%)}
+.scene-slide.s-blue  .ss-side-top{background:linear-gradient(90deg,var(--red2),var(--gold2))}
+.scene-slide.s-cream .ss-side{background:linear-gradient(175deg,#f5efe3 0%,var(--bg) 100%)}
+.scene-slide.s-cream .ss-side-top{background:linear-gradient(90deg,var(--gold),var(--gold3))}
+.scene-slide.s-rose  .ss-side{background:linear-gradient(175deg,#f8eeee 0%,var(--bg) 100%)}
+.scene-slide.s-rose  .ss-side-top{background:linear-gradient(90deg,var(--red),var(--gold2))}
+.scene-slide.s-sage  .ss-side{background:linear-gradient(175deg,#ecf2ee 0%,var(--bg) 100%)}
+.scene-slide.s-sage  .ss-side-top{background:linear-gradient(90deg,#2e6e50,var(--gold2))}
+
+/* ─────────────────────────────────────────
+   ══ CONCLUSION SLIDE ══
+───────────────────────────────────────── */
+#s12{
+  flex-direction:column;
+  background:var(--navy);
+  overflow:hidden;
+  align-items:center;
+  justify-content:flex-start;
+  padding:0;
+  height:100%;
+}
+.concl-accent{height:4px;width:100%;background:linear-gradient(90deg,var(--red),var(--gold2),var(--gold3));flex-shrink:0}
+.concl-inner{
+  max-width:860px;width:100%;
+  padding:2rem 3.5rem 2.5rem;
+  flex:1;min-height:0;
+  display:flex;flex-direction:column;
+  justify-content:flex-start;
+  align-items:flex-start;
+  text-align:left;
+  overflow-y:auto;
+  scrollbar-width:thin;scrollbar-color:rgba(184,120,32,.25) transparent;
+}
+.concl-inner::-webkit-scrollbar{width:3px}
+.concl-inner::-webkit-scrollbar-thumb{background:rgba(184,120,32,.15)}
+.concl-badge{
+  font-family:var(--fm);font-size:.62rem;font-weight:700;
+  letter-spacing:.5em;text-transform:uppercase;
+  color:var(--gold2);opacity:1;margin-bottom:.8rem;
+  width:100%;text-align:center;
+}
+.concl-title{
+  font-family:var(--fd);font-weight:900;font-style:italic;
+  font-size:clamp(1.9rem,4vw,3rem);
+  color:#ffffff;line-height:1.05;margin-bottom:.4rem;
+  width:100%;text-align:center;
+}
+.concl-sub{
+  font-family:var(--fd);font-style:italic;font-weight:500;
+  font-size:clamp(1rem,1.8vw,1.18rem);
+  color:var(--gold2);margin-bottom:1.2rem;opacity:1;
+  width:100%;text-align:center;
+}
+.concl-divider{
+  display:flex;align-items:center;gap:1rem;
+  width:100%;max-width:420px;margin:0 auto 1.6rem;
+}
+.concl-divider{
+  display:flex;align-items:center;gap:1rem;
+  width:100%;max-width:420px;margin:0 auto 2rem;
+}
+.concl-dline{flex:1;height:1px;background:linear-gradient(to right,transparent,rgba(184,120,32,.4),transparent)}
+.concl-text{
+  font-family:var(--fc);
+  font-size:clamp(1.1rem,1.6vw,1.22rem);
+  font-style:normal;
+  font-weight:500;
+  line-height:1.82;
+  color:#f0e8d8;
+  max-width:800px;text-align:left;margin-bottom:2rem;
+  letter-spacing:.012em;
+}
+.concl-text p{margin-bottom:1.1rem}
+.concl-text p:last-child{margin-bottom:0}
+.concl-text strong{color:#ffffff;font-weight:800;font-size:1.05em}
+.concl-text em{color:var(--gold3);font-style:italic;font-weight:700}
+.concl-quote{
+  font-family:var(--fd);font-style:italic;font-weight:500;
+  font-size:clamp(1rem,1.6vw,1.2rem);
+  color:#f5e8cc;
+  border-top:1px solid rgba(184,120,32,.35);
+  border-bottom:1px solid rgba(184,120,32,.35);
+  padding:1.2rem 2rem;max-width:660px;
+  line-height:1.75;margin:0 auto;
+}
+
+/* ─────────────────────────────────────────
+   FIXED UI
+───────────────────────────────────────── */
+/* Top progress bar */
+#bar{
+  position:fixed;top:0;left:0;right:0;
+  height:3px;z-index:600;
+  background:rgba(13,27,62,.08);
+}
+#bar-fill{
+  height:100%;
+  background:linear-gradient(90deg,var(--red),var(--gold2),var(--gold3));
+  transition:width .7s var(--ease);
+  box-shadow:0 0 8px rgba(184,120,32,.5);
+}
+
+/* Branding */
+#logo{
+  position:fixed;top:1rem;left:1.6rem;z-index:500;
+  display:flex;align-items:center;gap:.7rem;
+}
+.lg{width:9px;height:9px;background:var(--gold);transform:rotate(45deg);box-shadow:0 0 10px rgba(184,120,32,.5)}
+.lt{font-family:var(--fd);font-style:italic;font-size:1rem;color:var(--gold);line-height:1;opacity:.5}
+#logo.dark-logo .lt{color:var(--gold2);opacity:.6}
+#logo.dark-logo .lg{box-shadow:0 0 12px rgba(184,120,32,.7)}
+
+/* Counter */
+#ctr{
+  position:fixed;top:1.1rem;right:1.6rem;z-index:500;
+  font-family:var(--fm);font-size:.68rem;font-weight:400;
+  letter-spacing:.06em;
+}
+#ctr.light{color:rgba(13,27,62,.3)}
+#ctr.dark{color:rgba(184,120,32,.4)}
+#ctr b{font-size:.82rem}
+#ctr.light b{color:var(--navy);font-weight:600}
+#ctr.dark b{color:var(--gold2);font-weight:600}
+
+/* Arrow buttons */
+.arr{
+  position:fixed;top:50%;transform:translateY(-50%);
+  width:48px;height:48px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.25rem;
+  z-index:500;
+  transition:all .32s var(--ease);
+  border-radius:0;
+}
+.arr:disabled{opacity:.12;cursor:not-allowed;pointer-events:none}
+.arr:active{transform:translateY(-50%) scale(.95)}
+
+/* Light variant (for light slides) */
+.arr.light-arr{
+  background:rgba(13,27,62,.06);
+  border:1px solid rgba(13,27,62,.15);
+  color:rgba(13,27,62,.5);
+}
+.arr.light-arr:hover{
+  background:var(--navy);border-color:var(--navy);color:#fff;
+  box-shadow:0 8px 24px rgba(13,27,62,.2);
+  transform:translateY(-50%) scale(1.06);
+}
+
+/* Dark variant (for dark cover/conclusion) */
+.arr.dark-arr{
+  background:rgba(184,120,32,.1);
+  border:1px solid rgba(184,120,32,.25);
+  color:rgba(184,120,32,.65);
+}
+.arr.dark-arr:hover{
+  background:var(--gold2);border-color:var(--gold2);color:var(--navy);
+  box-shadow:0 8px 24px rgba(184,120,32,.3);
+  transform:translateY(-50%) scale(1.06);
+}
+
+#aprev{left:1rem}
+#anext{right:1rem}
+
+/* Dot nav */
+#dots{
+  position:fixed;bottom:1.6rem;left:50%;transform:translateX(-50%);
+  z-index:500;display:flex;align-items:center;gap:6px;
+  padding:.5rem 1rem;border-radius:24px;
+  transition:background .4s,border .4s;
+}
+#dots.light-dots{background:rgba(13,27,62,.06);border:1px solid rgba(13,27,62,.1)}
+#dots.dark-dots{background:rgba(6,12,25,.65);border:1px solid rgba(184,120,32,.12);backdrop-filter:blur(12px)}
+
+.dot{
+  width:7px;height:7px;border-radius:50%;
+  cursor:pointer;flex-shrink:0;
+  transition:all .42s var(--ease);
+  position:relative;
+}
+.light-dots .dot{background:rgba(13,27,62,.2)}
+.light-dots .dot:hover{background:rgba(13,27,62,.5);transform:scale(1.2)}
+.light-dots .dot.on{background:var(--navy);transform:scale(1.25);width:22px;border-radius:4px;box-shadow:0 0 8px rgba(13,27,62,.25)}
+.dark-dots .dot{background:rgba(184,120,32,.2)}
+.dark-dots .dot:hover{background:rgba(184,120,32,.5);transform:scale(1.2)}
+.dark-dots .dot.on{background:var(--gold);transform:scale(1.25);width:22px;border-radius:4px;box-shadow:0 0 10px rgba(184,120,32,.5)}
+
+/* Tooltip */
+.dot::after{
+  content:attr(data-tip);
+  position:absolute;bottom:calc(100% + 7px);left:50%;transform:translateX(-50%);
+  background:var(--navy);color:rgba(249,245,238,.85);
+  font-family:var(--fm);font-size:.5rem;font-weight:500;
+  letter-spacing:.06em;white-space:nowrap;
+  padding:4px 10px;border-radius:3px;
+  opacity:0;pointer-events:none;transition:opacity .22s;
+}
+.dot:hover::after{opacity:1}
+
+/* Keyboard hint */
+#hint{
+  position:fixed;bottom:5rem;right:1.4rem;z-index:500;
+  font-family:var(--fm);font-size:.5rem;font-weight:400;
+  letter-spacing:.14em;text-transform:uppercase;
+  display:flex;align-items:center;gap:4px;
+  transition:color .4s;
+}
+#hint.light-hint{color:rgba(13,27,62,.18)}
+#hint.dark-hint{color:rgba(184,120,32,.2)}
+.hk{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:20px;height:17px;border-radius:3px;font-size:.58rem;
+}
+.light-hint .hk{border:1px solid rgba(13,27,62,.15);color:rgba(13,27,62,.25)}
+.dark-hint .hk{border:1px solid rgba(184,120,32,.18);color:rgba(184,120,32,.28)}
+
+/* ─────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE  —  Full device coverage
+   Breakpoints: 1280 | 1024 | 900 | 768 | 600 | 480 | 360
+═══════════════════════════════════════════════════════════ */
+
+/* ─── 1280px and below: shrink sidebar slightly ─── */
+@media(max-width:1280px){
+  .scene-slide{grid-template-columns:220px 1fr}
+  .ss-main{padding:2.2rem 2.8rem}
+  .ss-side-inner{padding:2.2rem 1.5rem}
+  .ghost{font-size:10rem}
+  .ss-heading{font-size:clamp(1.2rem,2.2vw,1.75rem)}
+}
+
+/* ─── 1000px: hide right illustration panel ─── */
+@media(max-width:1000px){
+  .scene-slide{grid-template-columns:220px 1fr !important}
+    .ss-main{padding:2rem 2.4rem}
+}
+
+/* ─── 900px: narrow sidebar further ─── */
+@media(max-width:900px){
+  .scene-slide{grid-template-columns:180px 1fr !important}
+  .ss-side-inner{padding:2rem 1.2rem}
+  .ss-num{font-size:2rem}
+  .ss-stitle{font-size:1rem}
+  .ss-main{padding:1.8rem 2rem}
+  .ss-heading{font-size:1.4rem}
+  .ss-body{font-size:1.08rem;line-height:1.78}
+  .callout{font-size:1.05rem}
+  /* Cover */
+  .s0-title{font-size:clamp(3.8rem,9vw,8rem)}
+  .s0-chips{flex-wrap:wrap}
+  .chip{flex:1 1 40%;padding:.7rem 1.2rem}
+  /* Conclusion */
+  .concl-inner{padding:2rem 3vw}
+  .concl-title{font-size:clamp(1.6rem,4vw,2.8rem)}
+}
+
+/* ─── 768px: collapse sidebar, single column ─── */
+@media(max-width:768px){
+  /* Scene slides become single column */
+  .scene-slide{grid-template-columns:1fr !important}
+  .ss-side{display:none !important}
+    .ss-main{
+    padding:2rem 1.6rem 5rem;
+    /* Extra bottom padding for nav dots */
+  }
+  .ss-eyebrow{margin-top:.2rem}
+  .ss-heading{font-size:1.38rem;margin-bottom:.35rem}
+  .ss-body{font-size:1.08rem;line-height:1.78}
+  .callout{font-size:1.02rem;padding:.9rem 1.1rem}
+
+  /* Intro slide */
+  .intro-inner{padding:2rem 1.6rem 4.5rem}
+  .intro-head{font-size:clamp(1.6rem,5vw,2.8rem)}
+
+  /* Cover */
+  .s0-title{font-size:clamp(3.2rem,14vw,6rem);line-height:.88}
+  .s0-chips{flex-wrap:wrap;gap:0}
+  .chip{flex:1 1 40%;padding:.65rem 1rem}
+  .chipv{font-size:1.1rem}
+  .s0-sub{font-size:.9rem}
+  .s0-author{font-size:.6rem}
+  .s0-tag{font-size:.55rem;letter-spacing:.5em}
+  .s0-corners span{width:38px;height:38px}
+  .s0-corners .tl{top:1rem;left:1rem}
+  .s0-corners .tr{top:1rem;right:1rem}
+  .s0-corners .bl{bottom:1rem;left:1rem}
+  .s0-corners .br{bottom:1rem;right:1rem}
+
+  /* Conclusion */
+  .concl-inner{padding:1.8rem 1.6rem 5rem}
+  .concl-title{font-size:clamp(1.4rem,5vw,2.4rem)}
+  .concl-text{font-size:.97rem}
+  .concl-quote{padding:.85rem 1.2rem;font-size:.92rem}
+
+  /* Nav arrows */
+  .arr{width:38px;height:38px;font-size:.95rem}
+  #aprev{left:.3rem}
+  #anext{right:.3rem}
+
+  /* Keyboard hint hidden */
+  #hint{display:none}
+
+  /* Dots pill */
+  #dots{padding:.4rem .7rem;gap:5px}
+  .dot{width:6px;height:6px}
+  .light-dots .dot.on,.dark-dots .dot.on{width:16px}
+}
+
+/* ─── 600px: tighter mobile ─── */
+@media(max-width:600px){
+  .ss-main{padding:1.6rem 1.2rem 4.5rem}
+  .ss-heading{font-size:1.25rem}
+  .ss-body{font-size:1.04rem;line-height:1.75}
+  .callout{font-size:.98rem;padding:.75rem .95rem}
+  .pts li{font-size:1rem;line-height:1.7;padding-left:1.1rem}
+
+  .intro-inner{padding:1.6rem 1.2rem 4.5rem}
+  .intro-head{font-size:clamp(1.4rem,6vw,2.2rem)}
+  .intro-notice{font-size:.95rem;padding:1.1rem 1.2rem}
+  .intro-body{font-size:.95rem}
+
+  .concl-inner{padding:1.5rem 1.2rem 4.5rem}
+  .concl-title{font-size:clamp(1.2rem,5.5vw,2rem)}
+  .concl-sub{font-size:.88rem}
+  .concl-text{font-size:.92rem;line-height:1.88}
+  .concl-quote{font-size:.85rem;padding:.7rem 1rem}
+
+  .s0-title{font-size:clamp(2.8rem,16vw,5.5rem)}
+  .chip{padding:.55rem .8rem}
+  .chipv{font-size:1rem}
+  .chipk{font-size:.42rem}
+
+  /* Logo smaller */
+  .lt{font-size:.85rem}
+  .lg{width:7px;height:7px}
+  #ctr{font-size:.58rem}
+  #ctr b{font-size:.72rem}
+}
+
+/* ─── 480px: small phones ─── */
+@media(max-width:480px){
+  .ss-main{padding:1.4rem 1rem 4.5rem}
+  .ss-heading{font-size:1.15rem;line-height:1.25}
+  .ss-eyebrow{font-size:.5rem;letter-spacing:.4em}
+  .ss-body{font-size:1rem}
+  .callout{font-size:.96rem}
+  .grow-line{margin-bottom:.8rem}
+
+  .intro-inner{padding:1.4rem 1rem 4.5rem}
+  .intro-head{font-size:clamp(1.2rem,7vw,1.8rem)}
+  .intro-notice{font-size:.88rem;line-height:1.78}
+  .intro-body p{font-size:.9rem}
+  .intro-flag{font-size:.52rem;letter-spacing:.4em}
+
+  .concl-inner{padding:1.2rem 1rem 4.5rem}
+  .concl-title{font-size:clamp(1.1rem,6vw,1.7rem)}
+  .concl-text p{font-size:.88rem}
+  .concl-quote{font-size:.8rem}
+  .concl-badge{font-size:.5rem;letter-spacing:.45em}
+
+  .s0-title{font-size:clamp(2.4rem,18vw,4.8rem)}
+  .s0-chips{flex-direction:column;gap:0}
+  .chip{padding:.6rem 1.2rem;border-right:none;border-bottom:1px solid rgba(184,120,32,.12)}
+  .chip:last-child{border-bottom:none}
+
+  .arr{width:34px;height:34px;font-size:.85rem}
+  #aprev{left:.2rem}
+  #anext{right:.2rem}
+}
+
+/* ─── 360px: very small phones (iPhone SE, Galaxy A series) ─── */
+@media(max-width:360px){
+  html,body{font-size:15px}
+  .s0-title{font-size:clamp(2rem,19vw,4rem)}
+  .ss-heading{font-size:1.15rem}
+  .ss-body{font-size:1rem}
+  .ss-main{padding:1.2rem .9rem 4rem}
+  .intro-inner{padding:1.2rem .9rem 4rem}
+  .concl-inner{padding:1rem .9rem 4rem}
+  .arr{width:30px;height:30px;font-size:.8rem}
+  #aprev{left:.1rem}
+  #anext{right:.1rem}
+  #dots{gap:4px;padding:.3rem .6rem}
+  .dot,.light-dots .dot,.dark-dots .dot{width:5px;height:5px}
+  .light-dots .dot.on,.dark-dots .dot.on{width:14px}
+}
+
+/* ─── Touch / hover states for mobile ─── */
+@media(hover:none){
+  .arr{opacity:.75}
+  .chip:hover{background:transparent}
+  .dot:hover{transform:none}
+  .arr.light-arr:hover,.arr.dark-arr:hover{transform:translateY(-50%)}
+}
+
+/* ─── DECO LAYER ─── */
+.deco{
+  position:absolute;inset:0;
+  pointer-events:none;z-index:0;overflow:hidden;
+}
+.deco svg{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+}
+
+/* Push content above deco */
+.s0-corners,.s0-illus-wrap,
+.v,.s0-tag,.s0-title,.s0-rule,.s0-author,.s0-sub,.s0-chips,
+.ss-side,.ss-main,
+.intro-bar,.intro-inner,
+.concl-accent,.concl-inner{
+  position:relative;z-index:2;
+}
+
+
+/* Deco entrance animation */
+@keyframes decoIn{from{opacity:0}to{opacity:1}}
+.slide.active .deco{animation:decoIn .9s cubic-bezier(.16,1,.3,1) both}
+
+/* Gentle float */
+@keyframes ornFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+</style>
+</head>
+<body>
+
+<!-- FIXED UI -->
+<div id="bar"><div id="bar-fill" style="width:0%"></div></div>
+<div id="logo"><div class="lg"></div><div class="lt">Antigone</div></div>
+<div id="ctr"><b id="cn">1</b>&nbsp;<span style="opacity:.4">/</span>&nbsp;<b>13</b></div>
+<button class="arr" id="aprev" onclick="nav(-1)" aria-label="Précédent">&#8592;</button>
+<button class="arr" id="anext" onclick="nav(1)" aria-label="Suivant">&#8594;</button>
+<div id="dots"></div>
+<div id="hint"><span class="hk">←</span><span class="hk">→</span>&nbsp;naviguer</div>
+
+<!-- SLIDER -->
+<div id="outer"><div id="track">
+
+<!-- ══════════════════════════
+     SLIDE 0 · COUVERTURE
+══════════════════════════ -->
+<div class="slide" id="s0">
+
+<div class="deco"><svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="s0cen" cx="50%" cy="50%" r="45%">
+      <stop offset="0%" stop-color="#e8b040" stop-opacity=".15"/>
+      <stop offset="100%" stop-color="#e8b040" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="s0col" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e8b040" stop-opacity=".9"/>
+      <stop offset="100%" stop-color="#c8820a" stop-opacity=".18"/>
+    </linearGradient>
+    <radialGradient id="s0eye1" cx="40%" cy="42%" r="22%">
+      <stop offset="0%" stop-color="#e8b040" stop-opacity=".1"/>
+      <stop offset="100%" stop-color="#e8b040" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="s0eye2" cx="60%" cy="42%" r="22%">
+      <stop offset="0%" stop-color="#e8b040" stop-opacity=".1"/>
+      <stop offset="100%" stop-color="#e8b040" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Central warm glow behind mask -->
+  <ellipse cx="720" cy="440" rx="580" ry="420" fill="url(#s0cen)"/>
+  <!-- Eye glow rays -->
+  <ellipse cx="576" cy="378" rx="220" ry="160" fill="url(#s0eye1)"/>
+  <ellipse cx="864" cy="378" rx="220" ry="160" fill="url(#s0eye2)"/>
+
+  <!-- ══ TOP MEANDER FRIEZE ══ -->
+  <rect x="0" y="0" width="1440" height="38" fill="#e8b040" opacity=".09"/>
+  <line x1="0" y1="38" x2="1440" y2="38" stroke="#e8b040" stroke-width="1.8" opacity=".45"/>
+  <line x1="0" y1="41" x2="1440" y2="41" stroke="#e8b040" stroke-width=".6" opacity=".2"/>
+  <g stroke="#e8b040" stroke-width="1.5" fill="none" opacity=".38">
+    <polyline points="90,4 106,4 106,20 120,20 120,4 136,4 136,20 150,20 150,4 166,4 166,20 180,20 180,4 196,4"/>
+    <polyline points="230,4 246,4 246,20 260,20 260,4 276,4 276,20 290,20 290,4 306,4 306,20 320,20 320,4 336,4"/>
+    <polyline points="370,4 386,4 386,20 400,20 400,4 416,4 416,20 430,20 430,4 446,4 446,20 460,20 460,4 476,4"/>
+    <polyline points="510,4 526,4 526,20 540,20 540,4 556,4 556,20 570,20 570,4 586,4 586,20 600,20 600,4 616,4"/>
+    <polyline points="650,4 666,4 666,20 680,20 680,4 696,4 696,20 710,20 710,4 726,4 726,20 740,20 740,4 756,4"/>
+    <polyline points="790,4 806,4 806,20 820,20 820,4 836,4 836,20 850,20 850,4 866,4 866,20 880,20 880,4 896,4"/>
+    <polyline points="930,4 946,4 946,20 960,20 960,4 976,4 976,20 990,20 990,4 1006,4 1006,20 1020,20 1020,4 1036,4"/>
+    <polyline points="1070,4 1086,4 1086,20 1100,20 1100,4 1116,4 1116,20 1130,20 1130,4 1146,4 1146,20 1160,20 1160,4 1176,4"/>
+    <polyline points="1210,4 1226,4 1226,20 1240,20 1240,4 1256,4 1256,20 1270,20 1270,4 1286,4 1286,20 1300,20 1300,4 1316,4"/>
+    <polyline points="1350,4 1366,4 1366,20 1380,20 1380,4 1396,4"/>
+  </g>
+
+  <!-- ══ BOTTOM MEANDER FRIEZE ══ -->
+  <line x1="0" y1="859" x2="1440" y2="859" stroke="#e8b040" stroke-width=".6" opacity=".2"/>
+  <line x1="0" y1="862" x2="1440" y2="862" stroke="#e8b040" stroke-width="1.8" opacity=".45"/>
+  <rect x="0" y="862" width="1440" height="38" fill="#e8b040" opacity=".09"/>
+  <g stroke="#e8b040" stroke-width="1.5" fill="none" opacity=".38">
+    <polyline points="90,876 106,876 106,892 120,892 120,876 136,876 136,892 150,892 150,876 166,876 166,892 180,892 180,876 196,876"/>
+    <polyline points="510,876 526,876 526,892 540,892 540,876 556,876 556,892 570,892 570,876 586,876 586,892 600,892 600,876 616,876"/>
+    <polyline points="790,876 806,876 806,892 820,892 820,876 836,876 836,892 850,892 850,876 866,876 866,892 880,892 880,876 896,876"/>
+    <polyline points="1210,876 1226,876 1226,892 1240,892 1240,876 1256,876 1256,892 1270,892 1270,876 1286,876 1286,892 1300,892 1300,876 1316,876"/>
+    <polyline points="1350,876 1366,876 1366,892 1380,892 1380,876 1396,876"/>
+  </g>
+
+  <!-- ══ LEFT COLUMN ══ -->
+  <!-- Shaft -->
+  <rect x="44" y="55" width="32" height="790" fill="url(#s0col)" opacity=".22"/>
+  <!-- Fluting lines -->
+  <line x1="50" y1="55" x2="50" y2="845" stroke="#e8b040" stroke-width="1.1" opacity=".28"/>
+  <line x1="57" y1="55" x2="57" y2="845" stroke="#e8b040" stroke-width=".9" opacity=".22"/>
+  <line x1="64" y1="55" x2="64" y2="845" stroke="#e8b040" stroke-width=".9" opacity=".18"/>
+  <line x1="71" y1="55" x2="71" y2="845" stroke="#e8b040" stroke-width=".9" opacity=".15"/>
+  <!-- Capital (Ionic scroll) -->
+  <rect x="28" y="38" width="64" height="18" fill="#e8b040" opacity=".28"/>
+  <path d="M 28 38 Q 44 28 60 35 Q 72 28 92 38" fill="none" stroke="#e8b040" stroke-width="1.5" opacity=".35"/>
+  <ellipse cx="36" cy="34" rx="8" ry="10" fill="none" stroke="#e8b040" stroke-width="1.2" opacity=".3"/>
+  <ellipse cx="84" cy="34" rx="8" ry="10" fill="none" stroke="#e8b040" stroke-width="1.2" opacity=".3"/>
+  <rect x="22" y="54" width="76" height="8" fill="#e8b040" opacity=".2"/>
+  <!-- Base -->
+  <rect x="28" y="843" width="64" height="14" fill="#e8b040" opacity=".28"/>
+  <rect x="18" y="857" width="84" height="8" fill="#e8b040" opacity=".22"/>
+  <rect x="10" y="864" width="100" height="6" fill="#e8b040" opacity=".16"/>
+
+  <!-- ══ RIGHT COLUMN ══ -->
+  <rect x="1364" y="55" width="32" height="790" fill="url(#s0col)" opacity=".22"/>
+  <line x1="1370" y1="55" x2="1370" y2="845" stroke="#e8b040" stroke-width="1.1" opacity=".28"/>
+  <line x1="1377" y1="55" x2="1377" y2="845" stroke="#e8b040" stroke-width=".9" opacity=".22"/>
+  <line x1="1384" y1="55" x2="1384" y2="845" stroke="#e8b040" stroke-width=".9" opacity=".18"/>
+  <line x1="1391" y1="55" x2="1391" y2="845" stroke="#e8b040" stroke-width=".9" opacity=".15"/>
+  <rect x="1348" y="38" width="64" height="18" fill="#e8b040" opacity=".28"/>
+  <path d="M 1348 38 Q 1364 28 1380 35 Q 1392 28 1412 38" fill="none" stroke="#e8b040" stroke-width="1.5" opacity=".35"/>
+  <ellipse cx="1356" cy="34" rx="8" ry="10" fill="none" stroke="#e8b040" stroke-width="1.2" opacity=".3"/>
+  <ellipse cx="1404" cy="34" rx="8" ry="10" fill="none" stroke="#e8b040" stroke-width="1.2" opacity=".3"/>
+  <rect x="1342" y="54" width="76" height="8" fill="#e8b040" opacity=".2"/>
+  <rect x="1348" y="843" width="64" height="14" fill="#e8b040" opacity=".28"/>
+  <rect x="1338" y="857" width="84" height="8" fill="#e8b040" opacity=".22"/>
+  <rect x="1330" y="864" width="100" height="6" fill="#e8b040" opacity=".16"/>
+
+  <!-- ══ CENTRAL TRAGIC MASK ══ -->
+  <g opacity=".24">
+    <ellipse cx="720" cy="430" rx="148" ry="184" fill="none" stroke="#e8b040" stroke-width="2.2"/>
+    <ellipse cx="720" cy="430" rx="130" ry="164" fill="none" stroke="#e8b040" stroke-width="1" opacity=".55"/>
+    <!-- Brow -->
+    <path d="M 610 370 Q 720 346 830 370" fill="none" stroke="#e8b040" stroke-width="1.8"/>
+    <!-- Left eye — hollow almond -->
+    <ellipse cx="672" cy="400" rx="28" ry="16" fill="none" stroke="#e8b040" stroke-width="2.2"/>
+    <!-- Right eye -->
+    <ellipse cx="768" cy="400" rx="28" ry="16" fill="none" stroke="#e8b040" stroke-width="2.2"/>
+    <!-- Eye crosses (hollow) -->
+    <line x1="672" y1="389" x2="672" y2="411" stroke="#e8b040" stroke-width="1.6"/>
+    <line x1="660" y1="400" x2="684" y2="400" stroke="#e8b040" stroke-width="1.6"/>
+    <line x1="768" y1="389" x2="768" y2="411" stroke="#e8b040" stroke-width="1.6"/>
+    <line x1="756" y1="400" x2="780" y2="400" stroke="#e8b040" stroke-width="1.6"/>
+    <!-- Nose bridge -->
+    <path d="M 702 414 L 695 450 L 720 460 L 745 450 L 738 414" fill="none" stroke="#e8b040" stroke-width="1.4"/>
+    <!-- Mouth — tragic downturned -->
+    <path d="M 678 490 Q 720 468 762 490" fill="none" stroke="#e8b040" stroke-width="2.8"/>
+    <path d="M 678 490 Q 667 505 674 514" fill="none" stroke="#e8b040" stroke-width="1.5"/>
+    <path d="M 762 490 Q 773 505 766 514" fill="none" stroke="#e8b040" stroke-width="1.5"/>
+    <!-- Tear — left eye -->
+    <path d="M 660 416 C 655 428 653 442 660 454 C 667 442 665 428 660 416 Z" fill="#e8b040" opacity=".55"/>
+    <line x1="660" y1="454" x2="656" y2="476" stroke="#e8b040" stroke-width="1.2"/>
+    <ellipse cx="655" cy="480" rx="5" ry="7" fill="#e8b040" opacity=".3"/>
+  </g>
+
+  <!-- Radiating rays from mask eyes -->
+  <line x1="644" y1="400" x2="110" y2="340" stroke="#e8b040" stroke-width=".7" opacity=".12"/>
+  <line x1="644" y1="400" x2="90" y2="420" stroke="#e8b040" stroke-width=".7" opacity=".1"/>
+  <line x1="644" y1="400" x2="130" y2="560" stroke="#e8b040" stroke-width=".7" opacity=".1"/>
+  <line x1="796" y1="400" x2="1330" y2="340" stroke="#e8b040" stroke-width=".7" opacity=".12"/>
+  <line x1="796" y1="400" x2="1350" y2="420" stroke="#e8b040" stroke-width=".7" opacity=".1"/>
+  <line x1="796" y1="400" x2="1310" y2="560" stroke="#e8b040" stroke-width=".7" opacity=".1"/>
+
+  <!-- ══ LEFT LAUREL WREATH ══ -->
+  <g opacity=".3" fill="#e8b040">
+    <path d="M 155 480 C 132 458 126 428 148 420 C 143 444 157 452 175 463 Z"/>
+    <path d="M 145 524 C 118 510 110 476 135 467 C 133 490 149 499 168 505 Z"/>
+    <path d="M 140 568 C 112 557 102 521 128 513 C 128 536 144 545 164 549 Z"/>
+    <path d="M 142 612 C 114 603 102 565 130 557 C 132 580 148 589 168 591 Z"/>
+    <path d="M 152 655 C 126 648 116 609 144 602 C 147 625 163 634 182 635 Z"/>
+    <path d="M 152 418 Q 142 538 152 658" fill="none" stroke="#e8b040" stroke-width="2.2"/>
+    <!-- Small detail leaves -->
+    <path d="M 175 463 C 192 455 204 462 202 475 C 194 468 180 470 175 463 Z" opacity=".6"/>
+    <path d="M 168 505 C 185 498 197 506 194 519 C 186 512 172 514 168 505 Z" opacity=".55"/>
+    <path d="M 164 549 C 181 543 193 551 190 564 C 182 557 168 559 164 549 Z" opacity=".5"/>
+  </g>
+
+  <!-- ══ RIGHT LAUREL WREATH ══ -->
+  <g opacity=".3" fill="#e8b040">
+    <path d="M 1285 480 C 1308 458 1314 428 1292 420 C 1297 444 1283 452 1265 463 Z"/>
+    <path d="M 1295 524 C 1322 510 1330 476 1305 467 C 1307 490 1291 499 1272 505 Z"/>
+    <path d="M 1300 568 C 1328 557 1338 521 1312 513 C 1312 536 1296 545 1276 549 Z"/>
+    <path d="M 1298 612 C 1326 603 1338 565 1310 557 C 1308 580 1292 589 1272 591 Z"/>
+    <path d="M 1288 655 C 1314 648 1324 609 1296 602 C 1293 625 1277 634 1258 635 Z"/>
+    <path d="M 1288 418 Q 1298 538 1288 658" fill="none" stroke="#e8b040" stroke-width="2.2"/>
+  </g>
+
+  <!-- Scattered stars -->
+  <circle cx="720" cy="46" r="4" fill="#e8b040" opacity=".7"/>
+  <circle cx="480" cy="88" r="3" fill="#e8b040" opacity=".6"/>
+  <circle cx="960" cy="88" r="3" fill="#e8b040" opacity=".6"/>
+  <circle cx="300" cy="130" r="2.2" fill="#e8b040" opacity=".52"/>
+  <circle cx="1140" cy="130" r="2.2" fill="#e8b040" opacity=".52"/>
+  <circle cx="190" cy="200" r="1.8" fill="#e8b040" opacity=".42"/>
+  <circle cx="1250" cy="200" r="1.8" fill="#e8b040" opacity=".42"/>
+  <circle cx="380" cy="108" r="1.4" fill="#e8b040" opacity=".35"/>
+  <circle cx="860" cy="78" r="1.4" fill="#e8b040" opacity=".35"/>
+  <circle cx="580" cy="72" r="1.2" fill="#e8b040" opacity=".32"/>
+  <circle cx="1060" cy="108" r="1.2" fill="#e8b040" opacity=".32"/>
+</svg></div>
+
+  <div class="s0-corners">
+    <span class="tl"></span><span class="tr"></span>
+    <span class="bl"></span><span class="br"></span>
+  </div>
+  <p class="v s0-tag"> &middot; Littérature Française &middot; Jean Anouilh</p>
+  <h1 class="v s0-title">ANTIGONE</h1>
+  <div class="v s0-rule">
+    <div class="s0-rline"></div>
+    <div class="s0-gems"><span class="gem gem-g"></span><span class="gem gem-s"></span><span class="gem gem-g"></span></div>
+    <div class="s0-rline"></div>
+  </div>
+  <p class="v s0-author">Jean Anouilh &mdash; Créée à Paris en 1944</p>
+  <p class="v s0-sub">Résumé organisé scène par scène</p>
+  <div class="v s0-chips">
+    <div class="chip"><div class="chipv">1944</div><div class="chipk">Création</div></div>
+    <div class="chip"><div class="chipv">Tragédie</div><div class="chipk">Genre</div></div>
+    <div class="chip"><div class="chipv">1 Acte</div><div class="chipk">Structure</div></div>
+    <div class="chip"><div class="chipv">3 Morts</div><div class="chipk">Personnages</div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════
+     SLIDE 1 · INTRODUCTION
+══════════════════════════ -->
+<div class="slide" id="s1">
+
+<div class="deco"><svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="s1parch" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#b87820" stop-opacity=".1"/>
+      <stop offset="100%" stop-color="#b87820" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="s1seal" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#8a1c1c" stop-opacity=".18"/>
+      <stop offset="100%" stop-color="#8a1c1c" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Double border frame -->
+  <rect x="22" y="22" width="1396" height="856" fill="none" stroke="#b87820" stroke-width="1.4" opacity=".22"/>
+  <rect x="32" y="32" width="1376" height="836" fill="none" stroke="#b87820" stroke-width=".6" opacity=".12"/>
+
+  <!-- Corner flourishes -->
+  <g stroke="#b87820" stroke-width="1.6" fill="none" opacity=".32">
+    <polyline points="22,22 58,22 58,28 28,28 28,58 22,58"/>
+    <polyline points="1418,22 1382,22 1382,28 1412,28 1412,58 1418,58"/>
+    <polyline points="22,878 58,878 58,872 28,872 28,842 22,842"/>
+    <polyline points="1418,878 1382,878 1382,872 1412,872 1412,842 1418,842"/>
+  </g>
+  <!-- Corner diamond fills -->
+  <polygon points="40,40 52,52 40,64 28,52" fill="#b87820" opacity=".22"/>
+  <polygon points="1400,40 1412,52 1400,64 1388,52" fill="#b87820" opacity=".22"/>
+  <polygon points="40,860 52,848 40,836 28,848" fill="#b87820" opacity=".22"/>
+  <polygon points="1400,860 1412,848 1400,836 1388,848" fill="#b87820" opacity=".22"/>
+  <!-- Mid-side ornaments -->
+  <polygon points="720,22 732,34 720,46 708,34" fill="none" stroke="#b87820" stroke-width="1.2" opacity=".28"/>
+  <polygon points="22,450 34,462 22,474 10,462" fill="none" stroke="#b87820" stroke-width="1.2" opacity=".22"/>
+  <polygon points="1418,450 1430,462 1418,474 1406,462" fill="none" stroke="#b87820" stroke-width="1.2" opacity=".22"/>
+  <polygon points="720,878 732,866 720,854 708,866" fill="none" stroke="#b87820" stroke-width="1.2" opacity=".28"/>
+
+  <!-- Large open scroll — right background -->
+  <rect x="880" y="60" width="500" height="660" rx="8" fill="url(#s1parch)"/>
+  <rect x="880" y="60" width="500" height="660" rx="8" fill="none" stroke="#b87820" stroke-width="1.5" opacity=".18"/>
+  <!-- Scroll rollers -->
+  <rect x="872" y="54" width="16" height="674" rx="8" fill="none" stroke="#b87820" stroke-width="1.2" opacity=".18"/>
+  <rect x="1372" y="54" width="16" height="674" rx="8" fill="none" stroke="#b87820" stroke-width="1.2" opacity=".18"/>
+  <rect x="870" y="54" width="520" height="16" rx="8" fill="#b87820" opacity=".1"/>
+  <rect x="870" y="718" width="520" height="16" rx="8" fill="#b87820" opacity=".1"/>
+  <!-- Parchment writing lines — trailing off to right -->
+  <g stroke="#b87820" stroke-width=".9" opacity=".11">
+    <line x1="920" y1="110" x2="1340" y2="110"/><line x1="920" y1="138" x2="1330" y2="138"/>
+    <line x1="920" y1="166" x2="1300" y2="166"/><line x1="920" y1="194" x2="1280" y2="194"/>
+    <line x1="920" y1="222" x2="1255" y2="222"/><line x1="920" y1="250" x2="1230" y2="250"/>
+    <line x1="920" y1="278" x2="1200" y2="278"/><line x1="920" y1="306" x2="1170" y2="306"/>
+    <line x1="920" y1="334" x2="1140" y2="334"/>
+    <!-- Scratched out lines -->
+    <line x1="920" y1="362" x2="1110" y2="362"/>
+    <line x1="918" y1="358" x2="1112" y2="366" stroke="#8a1c1c" opacity=".15"/>
+    <line x1="920" y1="390" x2="1060" y2="390"/>
+    <line x1="918" y1="386" x2="1062" y2="394" stroke="#8a1c1c" opacity=".13"/>
+  </g>
+
+  <!-- Giant diagonal quill -->
+  <path d="M 1420 880 C 1430 760 1410 620 1300 500" fill="none" stroke="#b87820" stroke-width="3.5" opacity=".13"/>
+  <path d="M 1420 880 C 1460 790 1455 660 1360 560 C 1400 630 1410 760 1420 880"
+        fill="none" stroke="#b87820" stroke-width="1.4" opacity=".09"/>
+  <g stroke="#b87820" stroke-width="1.5" opacity=".13">
+    <line x1="1438" y1="836" x2="1418" y2="808"/>
+    <line x1="1446" y1="800" x2="1424" y2="770"/>
+    <line x1="1452" y1="762" x2="1428" y2="730"/>
+    <line x1="1456" y1="722" x2="1430" y2="690"/>
+    <line x1="1458" y1="680" x2="1430" y2="648"/>
+    <line x1="1456" y1="638" x2="1426" y2="606"/>
+  </g>
+  <polygon points="1300,500 1290,518 1308,518" fill="#b87820" opacity=".15"/>
+  <!-- Ink splatter -->
+  <circle cx="1298" cy="522" r="9" fill="#b87820" opacity=".09"/>
+  <circle cx="1288" cy="530" r="4" fill="#b87820" opacity=".06"/>
+  <circle cx="1310" cy="528" r="3" fill="#b87820" opacity=".06"/>
+
+  <!-- Wax seal — bottom left -->
+  <circle cx="160" cy="760" r="68" fill="url(#s1seal)"/>
+  <circle cx="160" cy="760" r="62" fill="none" stroke="#8a1c1c" stroke-width="1.5" opacity=".22"/>
+  <circle cx="160" cy="760" r="52" fill="none" stroke="#8a1c1c" stroke-width=".7" opacity=".15"/>
+  <!-- Seal text ring -->
+  <path id="sealArc" d="M 115 760 a 45 45 0 1 1 90 0" fill="none"/>
+  <!-- Crown on seal -->
+  <path d="M 138 738 L 135 724 L 145 732 L 160 722 L 175 732 L 185 724 L 182 738 Z"
+        fill="none" stroke="#8a1c1c" stroke-width="1.4" opacity=".3"/>
+  <line x1="138" y1="738" x2="182" y2="738" stroke="#8a1c1c" stroke-width="1" opacity=".28"/>
+  <!-- Seal A monogram -->
+  <path d="M 150 778 L 160 752 L 170 778 M 154 768 L 166 768"
+        fill="none" stroke="#8a1c1c" stroke-width="2" opacity=".32"/>
+
+  <!-- Diamond strip top centre -->
+  <g fill="none" stroke="#b87820" stroke-width="1.1" opacity=".24">
+    <polygon points="600,36 612,48 600,60 588,48"/><polygon points="640,36 652,48 640,60 628,48"/>
+    <polygon points="680,36 692,48 680,60 668,48"/><polygon points="720,36 732,48 720,60 708,48"/>
+    <polygon points="760,36 772,48 760,60 748,48"/><polygon points="800,36 812,48 800,60 788,48"/>
+    <polygon points="840,36 852,48 840,60 828,48"/>
+  </g>
+  <!-- Faint diagonal parchment texture lines -->
+  <g stroke="#b87820" stroke-width=".5" opacity=".04">
+    <line x1="0" y1="0" x2="800" y2="900"/><line x1="200" y1="0" x2="1000" y2="900"/>
+    <line x1="400" y1="0" x2="1200" y2="900"/><line x1="600" y1="0" x2="1400" y2="900"/>
+  </g>
+</svg></div>
+
+  <div class="intro-bar"></div>
+  <div class="intro-inner">
+    <p class="v intro-flag">00 &middot; Note préliminaire essentielle</p>
+    <h2 class="v intro-head">La Structure Unique de la Pièce</h2>
+    <div class="v intro-rule-wrap"><div class="grow-line"></div></div>
+    <div class="intro-notice v">
+      En réalité, la pièce <em>Antigone</em> de l'écrivain français Jean Anouilh se distingue par le fait qu'elle est une pièce en un seul acte continu et ne se divise pas en « scènes » ou en « actes » au sens traditionnel comme on le trouve dans le théâtre de Molière ou de Shakespeare.
+    </div>
+    <div class="intro-body">
+      <p class="v">Cette forme dramatique particulière est un choix artistique délibéré d'Anouilh. En créant une <strong>tension continue et ininterrompue</strong>, il reflète l'inexorabilité du destin tragique — le spectateur ne peut jamais souffler, jamais sortir du monde de la pièce.<p>
+      <p class="v">Pour faciliter l'analyse académique, nous distinguerons néanmoins <strong>onze grandes séquences dramatiques</strong>, suivies d'une conclusion sur le conflit central entre la loi morale et la loi politique. Cette organisation reste une convention analytique, et non une division formelle du texte original.</p>
+      <p class="v">La pièce fut créée le <strong>4 février 1944</strong> au Théâtre de l'Atelier à Paris, en pleine Occupation allemande. Anouilh réécrit le mythe de Sophocle (441 av. J.-C.) pour lui donner une résonance profondément contemporaine et universelle.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════
+     SLIDE 2 · LE PROLOGUE
+══════════════════════════ -->
+<div class="slide scene-slide s-blue" id="s2">
+
+<div class="deco"><svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="s2arch" cx="50%" cy="0%" r="75%">
+      <stop offset="0%" stop-color="#0d1b3e" stop-opacity=".14"/>
+      <stop offset="100%" stop-color="#0d1b3e" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="s2spot1" cx="33%" cy="0%" r="45%">
+      <stop offset="0%" stop-color="#e8b040" stop-opacity=".12"/>
+      <stop offset="100%" stop-color="#e8b040" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="s2spot2" cx="67%" cy="0%" r="45%">
+      <stop offset="0%" stop-color="#e8b040" stop-opacity=".1"/>
+      <stop offset="100%" stop-color="#e8b040" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Stage arch atmospheric glow -->
+  <ellipse cx="720" cy="0" rx="900" ry="600" fill="url(#s2arch)"/>
+  <!-- Two spotlights -->
+  <ellipse cx="480" cy="0" rx="420" ry="580" fill="url(#s2spot1)"/>
+  <ellipse cx="960" cy="0" rx="420" ry="580" fill="url(#s2spot2)"/>
+
+  <!-- Grand theatre arch — three nested -->
+  <path d="M 0 900 L 0 310 Q 0 44 720 44 Q 1440 44 1440 310 L 1440 900"
+        fill="none" stroke="#0d1b3e" stroke-width="2.2" opacity=".16"/>
+  <path d="M 80 900 L 80 330 Q 80 114 720 114 Q 1360 114 1360 330 L 1360 900"
+        fill="none" stroke="#0d1b3e" stroke-width="1.4" opacity=".1"/>
+  <path d="M 180 900 L 180 358 Q 180 188 720 188 Q 1260 188 1260 358 L 1260 900"
+        fill="none" stroke="#0d1b3e" stroke-width=".8" opacity=".07"/>
+
+  <!-- Keystone centre -->
+  <polygon points="720,42 746,56 744,78 720,88 696,78 694,56" fill="none" stroke="#b87820" stroke-width="2.2" opacity=".4"/>
+  <polygon points="720,50 740,60 738,74 720,82 702,74 700,60" fill="#b87820" opacity=".2"/>
+  <!-- Keystone lines -->
+  <line x1="720" y1="88" x2="720" y2="120" stroke="#b87820" stroke-width="1.4" opacity=".3"/>
+
+  <!-- Column capitals top-left and top-right -->
+  <g opacity=".15" fill="#0d1b3e">
+    <rect x="0" y="294" width="28" height="20"/>
+    <rect x="1412" y="294" width="28" height="20"/>
+    <polygon points="0,294 14,280 28,294"/><polygon points="1412,294 1426,280 1440,294"/>
+  </g>
+
+  <!-- Stage floor planks -->
+  <g stroke="#0d1b3e" stroke-width="1" opacity=".09">
+    <line x1="0" y1="812" x2="1440" y2="812"/>
+    <line x1="0" y1="820" x2="1440" y2="820"/>
+    <line x1="0" y1="828" x2="1440" y2="828"/>
+    <line x1="0" y1="836" x2="1440" y2="836"/>
+    <!-- Plank joints -->
+    <line x1="240" y1="812" x2="240" y2="836"/><line x1="480" y1="812" x2="480" y2="836"/>
+    <line x1="720" y1="812" x2="720" y2="836"/><line x1="960" y1="812" x2="960" y2="836"/>
+    <line x1="1200" y1="812" x2="1200" y2="836"/>
+  </g>
+
+  <!-- ═ FATE STARS with threads dropping to stage ═ -->
+  <!-- Major stars -->
+  <circle cx="720" cy="44" r="5" fill="#e8b040" opacity=".75"/>
+  <circle cx="480" cy="76" r="3.5" fill="#e8b040" opacity=".65"/>
+  <circle cx="960" cy="76" r="3.5" fill="#e8b040" opacity=".65"/>
+  <circle cx="290" cy="126" r="2.8" fill="#e8b040" opacity=".58"/>
+  <circle cx="1150" cy="126" r="2.8" fill="#e8b040" opacity=".58"/>
+  <circle cx="160" cy="210" r="2.2" fill="#e8b040" opacity=".48"/>
+  <circle cx="1280" cy="210" r="2.2" fill="#e8b040" opacity=".48"/>
+  <!-- Small -->
+  <circle cx="380" cy="100" r="1.6" fill="#e8b040" opacity=".42"/>
+  <circle cx="580" cy="62" r="1.6" fill="#e8b040" opacity=".44"/>
+  <circle cx="860" cy="62" r="1.6" fill="#e8b040" opacity=".44"/>
+  <circle cx="1060" cy="100" r="1.6" fill="#e8b040" opacity=".42"/>
+  <!-- Fate threads — dashed, from stars to stage floor figures -->
+  <line x1="720" y1="44" x2="560" y2="820" stroke="#b87820" stroke-width=".9" stroke-dasharray="6 10" opacity=".22"/>
+  <line x1="720" y1="44" x2="720" y2="820" stroke="#b87820" stroke-width=".9" stroke-dasharray="6 10" opacity=".24"/>
+  <line x1="720" y1="44" x2="880" y2="820" stroke="#b87820" stroke-width=".9" stroke-dasharray="6 10" opacity=".22"/>
+  <line x1="480" y1="76" x2="360" y2="820" stroke="#b87820" stroke-width=".7" stroke-dasharray="5 9" opacity=".16"/>
+  <line x1="960" y1="76" x2="1080" y2="820" stroke="#b87820" stroke-width=".7" stroke-dasharray="5 9" opacity=".16"/>
+
+  <!-- Spotlight cones (triangular, soft) -->
+  <polygon points="420,0 280,820 560,820" fill="#e8b040" opacity=".04"/>
+  <polygon points="720,0 600,820 840,820" fill="#e8b040" opacity=".05"/>
+  <polygon points="1020,0 880,820 1160,820" fill="#e8b040" opacity=".04"/>
+
+  <!-- Chorus silhouette — large, right side -->
+  <g opacity=".11" fill="#0d1b3e">
+    <ellipse cx="1310" cy="580" rx="36" ry="42"/>
+    <path d="M 1274 620 C 1262 672 1250 740 1238 830 L 1382 830 C 1370 740 1358 672 1346 620 Z"/>
+    <path d="M 1274 650 C 1228 644 1182 650 1150 662 L 1154 674 C 1184 664 1228 660 1274 664 Z"/>
+    <path d="M 1346 650 C 1392 644 1430 638 1456 644 L 1454 656 C 1428 650 1392 656 1346 664 Z"/>
+    <!-- Scroll -->
+    <rect x="1454" y="632" width="28" height="36" rx="14" opacity=".18"/>
+  </g>
+
+  <!-- Three small seated figures — stage left, bottom -->
+  <g opacity=".1" fill="#0d1b3e">
+    <ellipse cx="200" cy="798" rx="12" ry="14"/>
+    <rect x="188" y="812" width="24" height="18" rx="2"/>
+    <ellipse cx="300" cy="796" rx="12" ry="14"/>
+    <rect x="288" y="810" width="24" height="18" rx="2"/>
+    <ellipse cx="400" cy="798" rx="12" ry="14"/>
+    <rect x="388" y="812" width="24" height="18" rx="2"/>
+  </g>
+</svg></div>
+
+  <div class="ss-side">
+    <div class="ss-side-top"></div>
+    <div class="ghost">I</div>
+    <div class="ss-side-inner">
+      <div>
+        <div class="v ss-step">01 &middot; Première séquence</div>
+        <div class="v ss-num">I</div>
+        <p class="v ss-stitle">Le Prologue</p>
+      </div>
+      <div>
+        <div class="ss-chars-lbl v">Personnages</div>
+        <div class="v ss-char">Le Prologue (narrateur)</div>
+        <div class="v ss-char">Tous les personnages (immobiles)</div>
+      </div>
+    </div>
+  </div>
+  <div class="ss-main">
+    <div class="v ss-eyebrow">Séquence 1 &middot; Ouverture de la pièce</div>
+    <h2 class="v ss-heading">Le Prologue — La mise en scène du destin</h2>
+    <div class="v ss-gl"><div class="grow-line"></div></div>
+    <div class="ss-body">
+      <p class="v">La pièce s'ouvre sur une scène remarquable : <strong>les personnages sont déjà tous là</strong>, sur le plateau, dans la pénombre. Ils bavardent, ils tricotent, ils jouent aux cartes. Puis le <strong>Prologue</strong> — un personnage-narrateur sans nom propre — s'avance et s'adresse directement au public.</p>
+      <p class="v">Il présente chacun avec une précision froide et détachée : <em>Antigone</em>, la petite maigre assise là-bas qui pense ; <em>Ismène</em>, la belle qui rit avec le jeune homme ; <em>Hémon</em>, le fiancé blond ; <em>Créon</em>, le roi aux cheveux blancs ; <em>Eurydice</em>, la bonne femme qui tricote ; les trois gardes qui jouent aux cartes.</p>
+      <div class="v callout">
+        « Voilà. Ces personnages vont vous jouer l'histoire d'Antigone. Antigone, c'est la petite maigre qui est assise là-bas, et qui ne dit rien. »
+        <cite>— Le Prologue</cite>
+      </div>
+      <p class="v">La fonction de ce prologue est philosophiquement capitale : <strong>tout est déjà annoncé</strong>. On sait qui va mourir, on sait comment. La pièce n'est pas un suspense — c'est une méditation sur l'inexorabilité du destin. Anouilh dépouille la tragédie de tout effet de surprise pour la transformer en réflexion pure sur le choix et la fatalité.</p>
+    </div>
+  </div></div>
+
+<!-- ══════════════════════════
+     SLIDE 3 · NOURRICE
+══════════════════════════ -->
+<div class="slide scene-slide s-cream" id="s3">
+
+<div class="deco"><svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="s3sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1408" stop-opacity=".06"/>
+      <stop offset="55%" stop-color="#b87820" stop-opacity=".05"/>
+      <stop offset="100%" stop-color="#b87820" stop-opacity=".18"/>
+    </linearGradient>
+    <radialGradient id="s3sun" cx="85%" cy="100%" r="70%">
+      <stop offset="0%" stop-color="#e8b040" stop-opacity=".22"/>
+      <stop offset="100%" stop-color="#e8b040" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Sky wash -->
+  <rect x="0" y="0" width="1440" height="900" fill="url(#s3sky)"/>
+  <!-- Sun glow, bottom right -->
+  <ellipse cx="1300" cy="900" rx="900" ry="650" fill="url(#s3sun)"/>
+
+  <!-- Sun rays emanating from bottom-right horizon -->
+  <g stroke="#e8b040" stroke-width="1.2" opacity=".1">
+    <line x1="1300" y1="900" x2="100" y2="500"/>
+    <line x1="1300" y1="900" x2="200" y2="340"/>
+    <line x1="1300" y1="900" x2="400" y2="220"/>
+    <line x1="1300" y1="900" x2="600" y2="140"/>
+    <line x1="1300" y1="900" x2="800" y2="80"/>
+    <line x1="1300" y1="900" x2="1000" y2="40"/>
+    <line x1="1300" y1="900" x2="1100" y2="200"/>
+    <line x1="1300" y1="900" x2="50" y2="680"/>
+  </g>
+
+  <!-- Horizon line -->
+  <line x1="0" y1="660" x2="1440" y2="660" stroke="#b87820" stroke-width="1" opacity=".22"/>
+  <line x1="0" y1="664" x2="1440" y2="664" stroke="#b87820" stroke-width=".5" opacity=".12"/>
+
+  <!-- City silhouette on horizon — right side -->
+  <g fill="#b87820" opacity=".14">
+    <rect x="900" y="618" width="12" height="42"/>
+    <rect x="920" y="606" width="16" height="54"/>
+    <rect x="944" y="622" width="10" height="38"/>
+    <rect x="962" y="610" width="18" height="50"/>
+    <rect x="988" y="600" width="14" height="60"/>
+    <!-- Triangular roofs -->
+    <polygon points="900,618 906,608 912,618"/>
+    <polygon points="962,610 971,596 980,610"/>
+    <polygon points="988,600 995,588 1002,600"/>
+    <!-- Tower -->
+    <rect x="1012" y="580" width="22" height="80"/>
+    <polygon points="1012,580 1023,564 1034,580"/>
+    <!-- More buildings -->
+    <rect x="1042" y="614" width="14" height="46"/>
+    <rect x="1064" y="604" width="20" height="56"/>
+    <rect x="1092" y="616" width="12" height="44"/>
+    <rect x="1112" y="596" width="24" height="64"/>
+    <rect x="1144" y="620" width="14" height="40"/>
+    <rect x="1166" y="608" width="18" height="52"/>
+  </g>
+
+  <!-- Tomb / burial mound — centre-left, ground -->
+  <ellipse cx="340" cy="690" rx="120" ry="36" fill="#b87820" opacity=".12"/>
+  <path d="M 220 660 Q 340 618 460 660" fill="none" stroke="#b87820" stroke-width="1.8" opacity=".2"/>
+  <!-- Tomb entrance -->
+  <path d="M 300 660 Q 340 638 380 660" fill="none" stroke="#b87820" stroke-width="1.2" opacity=".2"/>
+  <line x1="320" y1="660" x2="320" y2="690" stroke="#b87820" stroke-width=".8" opacity=".15"/>
+  <line x1="360" y1="660" x2="360" y2="690" stroke="#b87820" stroke-width=".8" opacity=".15"/>
+
+  <!-- Fading stars -->
+  <circle cx="120" cy="80" r="2.5" fill="#b87820" opacity=".4"/>
+  <circle cx="280" cy="44" r="2" fill="#b87820" opacity=".35"/>
+  <circle cx="460" cy="60" r="3" fill="#b87820" opacity=".42"/>
+  <circle cx="600" cy="38" r="1.8" fill="#b87820" opacity=".32"/>
+  <circle cx="720" cy="50" r="2.5" fill="#b87820" opacity=".38"/>
+  <circle cx="860" cy="34" r="1.6" fill="#b87820" opacity=".3"/>
+  <circle cx="180" cy="160" r="1.4" fill="#b87820" opacity=".28"/>
+  <circle cx="380" cy="130" r="1.2" fill="#b87820" opacity=".24"/>
+  <!-- Star glow aura (fading) -->
+  <circle cx="460" cy="60" r="12" fill="#b87820" opacity=".04"/>
+  <circle cx="720" cy="50" r="10" fill="#b87820" opacity=".03"/>
+
+  <!-- Scattered earth/soil particles around the mound -->
+  <g fill="#b87820" opacity=".18">
+    <circle cx="210" cy="668" r="3"/><circle cx="198" cy="680" r="2"/>
+    <circle cx="222" cy="676" r="2.5"/><circle cx="186" cy="672" r="1.8"/>
+    <circle cx="468" cy="666" r="3"/><circle cx="480" cy="674" r="2"/>
+    <circle cx="456" cy="672" r="2.2"/><circle cx="492" cy="668" r="1.8"/>
+    <circle cx="340" cy="726" r="2.5"/><circle cx="320" cy="718" r="2"/>
+    <circle cx="360" cy="720" r="2"/><circle cx="350" cy="730" r="1.5"/>
+  </g>
+
+  <!-- Ground texture lines -->
+  <g stroke="#b87820" stroke-width=".6" opacity=".1">
+    <line x1="0" y1="690" x2="1440" y2="690"/>
+    <line x1="0" y1="720" x2="1440" y2="720"/>
+    <line x1="0" y1="750" x2="1440" y2="750"/>
+    <line x1="0" y1="780" x2="1440" y2="780"/>
+    <line x1="0" y1="810" x2="1440" y2="810"/>
+    <line x1="0" y1="840" x2="1440" y2="840"/>
+    <line x1="0" y1="870" x2="1440" y2="870"/>
+  </g>
+
+  <!-- Thin decorative border top -->
+  <line x1="0" y1="4" x2="1440" y2="4" stroke="#b87820" stroke-width=".8" opacity=".18"/>
+  <g fill="none" stroke="#b87820" stroke-width=".9" opacity=".18">
+    <polygon points="60,4 72,16 60,28 48,16"/>
+    <polygon points="720,4 732,16 720,28 708,16"/>
+    <polygon points="1380,4 1392,16 1380,28 1368,16"/>
+  </g>
+</svg></div>
+
+  <div class="ss-side">
+    <div class="ss-side-top"></div>
+    <div class="ghost">II</div>
+    <div class="ss-side-inner">
+      <div>
+        <div class="v ss-step">02 &middot; Deuxième séquence</div>
+        <div class="v ss-num">II</div>
+        <p class="v ss-stitle">Antigone et la Nourrice</p>
+      </div>
+      <div>
+        <div class="ss-chars-lbl v">Personnages</div>
+        <div class="v ss-char">Antigone</div>
+        <div class="v ss-char">La Nourrice</div>
+      </div>
+    </div>
+  </div>
+  <div class="ss-main">
+    <div class="v ss-eyebrow">Séquence 2 &middot; L'aube mystérieuse</div>
+    <h2 class="v ss-heading">L'Aube — Le Premier Geste Secret</h2>
+    <div class="v ss-gl"><div class="grow-line"></div></div>
+    <div class="ss-body">
+      <p class="v">L'action commence à l'aube. <strong>Antigone rentre</strong> dans la maison de Créon, les mains et les vêtements couverts de terre. La <strong>Nourrice</strong>, qui l'a élevée depuis l'enfance, l'attendait dans l'ombre, rongée d'inquiétude.</p>
+      <p class="v">La Nourrice la gronde avec l'amour bourru des vieilles servantes : où était-elle ? Qu'a-t-elle fait ? Antigone l'écoute avec une douceur inhabituellement tendre — comme si elle prenait congé de cette femme sans qu'elle le sache. Elle demande du café, elle veut voir le jardin encore une fois.</p>
+      <div class="v callout">
+        « J'étais sortie. »<br>« Tu n'avais pas à sortir la nuit. »
+        <cite>— Antigone et la Nourrice</cite>
+      </div>
+      <p class="v">On comprend qu'elle vient d'accomplir un premier geste clandestin : <em>tenter d'enterrer le corps de son frère Polynice</em>, abandonné sans sépulture sur ordre du roi Créon. Cet acte est puni de mort. La scène installe une atmosphère de <strong>douceur et de mélancolie</strong> — Antigone sait déjà ce qui va suivre.</p>
+    </div>
+  </div></div>
+
+<!-- ══════════════════════════
+     SLIDE 4 · ISMÈNE
+══════════════════════════ -->
+<div class="slide scene-slide s-rose" id="s4">
+
+<div class="deco"><svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="s4glow" cx="50%" cy="50%" r="55%">
+      <stop offset="0%" stop-color="#8a1c1c" stop-opacity=".06"/>
+      <stop offset="100%" stop-color="#8a1c1c" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Subtle rose glow centre -->
+  <ellipse cx="720" cy="450" rx="700" ry="500" fill="url(#s4glow)"/>
+
+  <!-- ═ TWO MIRRORED COLUMNS — left panel, symbolising the two sisters ═ -->
+  <!-- Column 1 — intact (Ismène) -->
+  <rect x="30" y="50" width="22" height="760" fill="#8a1c1c" opacity=".09"/>
+  <line x1="34" y1="50" x2="34" y2="810" stroke="#8a1c1c" stroke-width=".9" opacity=".14"/>
+  <line x1="40" y1="50" x2="40" y2="810" stroke="#8a1c1c" stroke-width=".7" opacity=".1"/>
+  <line x1="46" y1="50" x2="46" y2="810" stroke="#8a1c1c" stroke-width=".7" opacity=".08"/>
+  <!-- Capital -->
+  <rect x="18" y="36" width="46" height="14" fill="#8a1c1c" opacity=".14"/>
+  <path d="M 18 36 Q 32 26 41 32 Q 50 26 64 36" fill="none" stroke="#8a1c1c" stroke-width="1.2" opacity=".2"/>
+  <rect x="14" y="48" width="54" height="7" fill="#8a1c1c" opacity=".1"/>
+  <!-- Base -->
+  <rect x="18" y="808" width="46" height="12" fill="#8a1c1c" opacity=".14"/>
+  <rect x="12" y="820" width="58" height="8" fill="#8a1c1c" opacity=".1"/>
+
+  <!-- Column 2 — cracked, split (Antigone) -->
+  <rect x="78" y="50" width="22" height="760" fill="#b87820" opacity=".09"/>
+  <line x1="82" y1="50" x2="82" y2="810" stroke="#b87820" stroke-width=".9" opacity=".14"/>
+  <line x1="88" y1="50" x2="88" y2="810" stroke="#b87820" stroke-width=".7" opacity=".1"/>
+  <line x1="94" y1="50" x2="94" y2="810" stroke="#b87820" stroke-width=".7" opacity=".08"/>
+  <!-- Capital -->
+  <rect x="66" y="36" width="46" height="14" fill="#b87820" opacity=".14"/>
+  <rect x="62" y="48" width="54" height="7" fill="#b87820" opacity=".1"/>
+  <!-- Base -->
+  <rect x="66" y="808" width="46" height="12" fill="#b87820" opacity=".14"/>
+  <rect x="60" y="820" width="58" height="8" fill="#b87820" opacity=".1"/>
+  <!-- Crack lines in column 2 -->
+  <path d="M 86 200 L 82 260 L 90 320 L 84 400 L 92 480 L 86 560" fill="none" stroke="#8a1c1c" stroke-width="1.4" opacity=".2"/>
+  <path d="M 90 260 L 96 290 L 88 310" fill="none" stroke="#8a1c1c" stroke-width=".9" opacity=".15"/>
+  <path d="M 84 400 L 78 430 L 88 450" fill="none" stroke="#8a1c1c" stroke-width=".9" opacity=".15"/>
+
+  <!-- ═ CENTRAL DIVIDING LINE with ornament ═ -->
+  <line x1="720" y1="0" x2="720" y2="900" stroke="#8a1c1c" stroke-width=".6" stroke-dasharray="6 10" opacity=".14"/>
+  <!-- Ornament at centre -->
+  <polygon points="720,440 734,454 720,468 706,454" fill="none" stroke="#8a1c1c" stroke-width="1.2" opacity=".22"/>
+  <polygon points="720,446 730,454 720,462 710,454" fill="#8a1c1c" opacity=".12"/>
+  <!-- Chain of diamonds along the line -->
+  <g fill="none" stroke="#8a1c1c" stroke-width=".8" opacity=".14">
+    <polygon points="720,200 728,208 720,216 712,208"/>
+    <polygon points="720,280 728,288 720,296 712,288"/>
+    <polygon points="720,360 728,368 720,376 712,368"/>
+    <polygon points="720,520 728,528 720,536 712,528"/>
+    <polygon points="720,600 728,608 720,616 712,608"/>
+    <polygon points="720,680 728,688 720,696 712,688"/>
+  </g>
+
+  <!-- ═ TORN ROPE — symbolising severed bond ═ -->
+  <path d="M 200 300 C 280 290 350 310 420 298 C 490 286 540 305 600 294 C 650 285 700 295 720 290"
+        fill="none" stroke="#8a1c1c" stroke-width="1.8" opacity=".18"/>
+  <path d="M 720 290 C 740 285 760 295 780 290"
+        fill="none" stroke="#8a1c1c" stroke-width="1.8" opacity=".18" stroke-dasharray="4 4"/>
+  <!-- Frayed ends at break -->
+  <line x1="718" y1="286" x2="712" y2="278" stroke="#8a1c1c" stroke-width=".9" opacity=".18"/>
+  <line x1="716" y1="290" x2="708" y2="285" stroke="#8a1c1c" stroke-width=".9" opacity=".16"/>
+  <line x1="722" y1="288" x2="716" y2="280" stroke="#8a1c1c" stroke-width=".7" opacity=".14"/>
+  <line x1="724" y1="286" x2="730" y2="278" stroke="#8a1c1c" stroke-width=".9" opacity=".18"/>
+  <line x1="726" y1="290" x2="734" y2="284" stroke="#8a1c1c" stroke-width=".9" opacity=".16"/>
+
+  <!-- ═ DRIED FLOWER PETALS scattered ═ -->
+  <g fill="#8a1c1c" opacity=".14">
+    <ellipse cx="900" cy="200" rx="8" ry="20" transform="rotate(25 900 200)"/>
+    <ellipse cx="920" cy="185" rx="7" ry="18" transform="rotate(-15 920 185)"/>
+    <ellipse cx="908" cy="220" rx="6" ry="16" transform="rotate(55 908 220)"/>
+    <ellipse cx="930" cy="210" rx="7" ry="17" transform="rotate(-40 930 210)"/>
+    <ellipse cx="944" cy="195" rx="5" ry="15" transform="rotate(10 944 195)"/>
+    <!-- Stem -->
+    <line x1="918" y1="230" x2="918" y2="300" stroke="#8a1c1c" stroke-width="1.2" opacity=".18"/>
+    <!-- Second cluster -->
+    <ellipse cx="1160" cy="680" rx="7" ry="18" transform="rotate(30 1160 680)"/>
+    <ellipse cx="1178" cy="665" rx="6" ry="16" transform="rotate(-20 1178 665)"/>
+    <ellipse cx="1168" cy="696" rx="6" ry="15" transform="rotate(60 1168 696)"/>
+    <ellipse cx="1182" cy="685" rx="5" ry="14" transform="rotate(-45 1182 685)"/>
+    <line x1="1170" y1="704" x2="1170" y2="770" stroke="#8a1c1c" stroke-width="1.1" opacity=".18"/>
+  </g>
+
+  <!-- ═ BROKEN VASE — bottom right ═ -->
+  <g fill="none" stroke="#8a1c1c" stroke-width="1.3" opacity=".18">
+    <path d="M 1280 820 C 1270 770 1260 730 1270 700 L 1290 680 L 1320 680 L 1340 700 C 1350 730 1340 770 1330 820 Z"/>
+    <!-- Crack -->
+    <path d="M 1295 820 L 1300 780 L 1290 740 L 1305 700"/>
+    <!-- Neck and rim -->
+    <path d="M 1270 700 Q 1305 660 1340 700"/>
+    <line x1="1258" y1="694" x2="1352" y2="694" stroke-width=".8"/>
+    <!-- Handles -->
+    <path d="M 1270 720 C 1252 720 1248 740 1264 742"/>
+    <path d="M 1340 720 C 1358 720 1362 740 1346 742"/>
+    <!-- Shards on floor -->
+    <polygon points="1240,840 1255,820 1265,840"/>
+    <polygon points="1345,838 1360,820 1370,840"/>
+    <line x1="1240" y1="840" x2="1400" y2="840"/>
+  </g>
+
+  <!-- Border top -->
+  <line x1="0" y1="4" x2="1440" y2="4" stroke="#8a1c1c" stroke-width=".8" opacity=".16"/>
+  <g fill="none" stroke="#8a1c1c" stroke-width=".9" opacity=".16">
+    <polygon points="50,4 62,16 50,28 38,16"/>
+    <polygon points="720,4 732,16 720,28 708,16"/>
+    <polygon points="1390,4 1402,16 1390,28 1378,16"/>
+  </g>
+</svg></div>
+
+  <div class="ss-side">
+    <div class="ss-side-top"></div>
+    <div class="ghost">III</div>
+    <div class="ss-side-inner">
+      <div>
+        <div class="v ss-step">03 &middot; Troisième séquence</div>
+        <div class="v ss-num">III</div>
+        <p class="v ss-stitle">Antigone et Ismène</p>
+      </div>
+      <div>
+        <div class="ss-chars-lbl v">Personnages</div>
+        <div class="v ss-char">Antigone</div>
+        <div class="v ss-char">Ismène</div>
+      </div>
+    </div>
+  </div>
+  <div class="ss-main">
+    <div class="v ss-eyebrow">Séquence 3 &middot; Le refus de la sœur</div>
+    <h2 class="v ss-heading">Ismène — La Raison contre l'Absolu</h2>
+    <div class="v ss-gl"><div class="grow-line"></div></div>
+    <div class="ss-body">
+      <p class="v">Antigone réveille sa sœur <strong>Ismène</strong> et lui révèle son projet : enterrer le corps de Polynice malgré le décret de Créon qui le punit de mort. Elle lui demande de l'aider.</p>
+      <p class="v"><strong>Ismène refuse</strong>. Elle argumente avec bon sens et compassion : elles sont deux femmes seules, leurs parents sont morts dans la honte, leurs deux frères entre-tués. Elles n'ont pas les moyens de lutter contre un roi. Il faut accepter, vivre, se taire.</p>
+      <div class="v callout">
+        « Je ne veux pas mourir. »<br>« Moi, j'aurais voulu ne pas mourir. »
+        <cite>— Ismène et Antigone</cite>
+      </div>
+      <p class="v">Antigone la congédie avec une froide et douloureuse fermeté : <em>« Va te recoucher. »</em> Elle n'a plus besoin d'elle. Elle agira seule. Cette scène oppose deux visions irréconciliables : <strong>la résignation lucide d'Ismène</strong> — qui choisit la vie au prix du silence — contre <strong>l'absolu inflexible d'Antigone</strong> — qui choisit la mort pour rester elle-même.</p>
+    </div>
+  </div></div>
+
+<!-- ══════════════════════════
+     SLIDE 5 · HÉMON
+══════════════════════════ -->
+<div class="slide scene-slide s-sage" id="s5">
+
+<div class="deco"><svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="s5flame" cx="50%" cy="100%" r="65%">
+      <stop offset="0%" stop-color="#e8b040" stop-opacity=".28"/>
+      <stop offset="55%" stop-color="#e8b040" stop-opacity=".08"/>
+      <stop offset="100%" stop-color="#e8b040" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="s5warm" cx="50%" cy="85%" r="50%">
+      <stop offset="0%" stop-color="#cc8f28" stop-opacity=".15"/>
+      <stop offset="100%" stop-color="#cc8f28" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Warm floor glow from candle -->
+  <ellipse cx="720" cy="900" rx="800" ry="520" fill="url(#s5flame)"/>
+  <ellipse cx="720" cy="900" rx="500" ry="350" fill="url(#s5warm)"/>
+
+  <!-- ═ LARGE CANDLE, CENTRE ═ -->
+  <!-- Wax drips -->
+  <path d="M 706 900 C 704 870 702 850 700 820 C 710 830 712 860 714 900 Z" fill="#e8b040" opacity=".18"/>
+  <path d="M 736 900 C 738 875 740 855 742 824 C 732 834 730 865 728 900 Z" fill="#e8b040" opacity=".18"/>
+  <path d="M 720 900 C 716 872 712 844 710 810 C 712 800 715 796 720 800 C 725 796 728 800 730 810 C 728 844 724 872 720 900 Z" fill="#e8b040" opacity=".22"/>
+  <!-- Candle body -->
+  <rect x="700" y="760" width="40" height="140" fill="#e8b040" opacity=".12"/>
+  <rect x="702" y="762" width="36" height="136" fill="none" stroke="#e8b040" stroke-width="1.5" opacity=".2"/>
+  <!-- Candle top plate -->
+  <ellipse cx="720" cy="762" rx="24" ry="8" fill="#e8b040" opacity=".18"/>
+  <!-- Flame -->
+  <path d="M 720 700 C 710 730 706 748 720 762 C 734 748 730 730 720 700 Z" fill="#e8b040" opacity=".55"/>
+  <path d="M 720 716 C 713 736 710 750 720 760 C 730 750 727 736 720 716 Z" fill="#fff" opacity=".18"/>
+  <!-- Flame glow ring -->
+  <circle cx="720" cy="738" r="30" fill="#e8b040" opacity=".1"/>
+  <circle cx="720" cy="738" r="60" fill="#e8b040" opacity=".06"/>
+
+  <!-- Light rays from flame -->
+  <g stroke="#e8b040" stroke-width="1" opacity=".1">
+    <line x1="720" y1="700" x2="200" y2="300"/>
+    <line x1="720" y1="700" x2="350" y2="200"/>
+    <line x1="720" y1="700" x2="520" y2="150"/>
+    <line x1="720" y1="700" x2="720" y2="100"/>
+    <line x1="720" y1="700" x2="920" y2="150"/>
+    <line x1="720" y1="700" x2="1090" y2="200"/>
+    <line x1="720" y1="700" x2="1240" y2="300"/>
+  </g>
+
+  <!-- ═ OLIVE BRANCH WREATH — top, tender ═ -->
+  <!-- Left branch -->
+  <path d="M 420 120 C 460 100 510 90 560 95 C 610 100 650 120 680 140 C 700 152 710 160 720 160"
+        fill="none" stroke="#2e6e50" stroke-width="1.8" opacity=".3"/>
+  <g fill="#2e6e50" opacity=".28">
+    <ellipse cx="450" cy="108" rx="12" ry="7" transform="rotate(-30 450 108)"/>
+    <ellipse cx="478" cy="98" rx="11" ry="6" transform="rotate(-15 478 98)"/>
+    <ellipse cx="508" cy="92" rx="12" ry="6" transform="rotate(5 508 92)"/>
+    <ellipse cx="538" cy="92" rx="11" ry="7" transform="rotate(20 538 92)"/>
+    <ellipse cx="566" cy="96" rx="12" ry="6" transform="rotate(30 566 96)"/>
+    <ellipse cx="594" cy="106" rx="11" ry="7" transform="rotate(40 594 106)"/>
+    <ellipse cx="620" cy="120" rx="12" ry="7" transform="rotate(50 620 120)"/>
+    <ellipse cx="644" cy="134" rx="11" ry="7" transform="rotate(58 644 134)"/>
+    <ellipse cx="666" cy="148" rx="10" ry="6" transform="rotate(65 666 148)"/>
+    <!-- Tiny olives -->
+    <circle cx="460" cy="104" r="4" opacity=".5"/>
+    <circle cx="520" cy="90" r="3.5" opacity=".5"/>
+    <circle cx="580" cy="94" r="4" opacity=".5"/>
+    <circle cx="636" cy="118" r="3.5" opacity=".5"/>
+  </g>
+  <!-- Right branch (mirrored) -->
+  <path d="M 1020 120 C 980 100 930 90 880 95 C 830 100 790 120 760 140 C 740 152 730 160 720 160"
+        fill="none" stroke="#2e6e50" stroke-width="1.8" opacity=".3"/>
+  <g fill="#2e6e50" opacity=".28">
+    <ellipse cx="990" cy="108" rx="12" ry="7" transform="rotate(30 990 108)"/>
+    <ellipse cx="962" cy="98" rx="11" ry="6" transform="rotate(15 962 98)"/>
+    <ellipse cx="932" cy="92" rx="12" ry="6" transform="rotate(-5 932 92)"/>
+    <ellipse cx="902" cy="92" rx="11" ry="7" transform="rotate(-20 902 92)"/>
+    <ellipse cx="874" cy="96" rx="12" ry="6" transform="rotate(-30 874 96)"/>
+    <ellipse cx="846" cy="106" rx="11" ry="7" transform="rotate(-40 846 106)"/>
+    <ellipse cx="820" cy="120" rx="12" ry="7" transform="rotate(-50 820 120)"/>
+    <ellipse cx="796" cy="134" rx="11" ry="7" transform="rotate(-58 796 134)"/>
+    <ellipse cx="774" cy="148" rx="10" ry="6" transform="rotate(-65 774 148)"/>
+    <circle cx="980" cy="104" r="4" opacity=".5"/>
+    <circle cx="920" cy="90" r="3.5" opacity=".5"/>
+    <circle cx="860" cy="94" r="4" opacity=".5"/>
+    <circle cx="804" cy="118" r="3.5" opacity=".5"/>
+  </g>
+  <!-- Wreath tie at bottom -->
+  <circle cx="720" cy="160" r="10" fill="none" stroke="#2e6e50" stroke-width="1.5" opacity=".3"/>
+  <polygon points="720,160 726,168 720,176 714,168" fill="#2e6e50" opacity=".22"/>
+
+  <!-- Night sky top — stars -->
+  <circle cx="140" cy="60" r="2" fill="#e8b040" opacity=".42"/>
+  <circle cx="360" cy="36" r="2.5" fill="#e8b040" opacity=".48"/>
+  <circle cx="520" cy="55" r="1.8" fill="#e8b040" opacity=".38"/>
+  <circle cx="720" cy="28" r="3" fill="#e8b040" opacity=".52"/>
+  <circle cx="920" cy="55" r="1.8" fill="#e8b040" opacity=".38"/>
+  <circle cx="1080" cy="36" r="2.5" fill="#e8b040" opacity=".48"/>
+  <circle cx="1300" cy="60" r="2" fill="#e8b040" opacity=".42"/>
+  <circle cx="240" cy="90" r="1.4" fill="#e8b040" opacity=".3"/>
+  <circle cx="600" cy="76" r="1.4" fill="#e8b040" opacity=".3"/>
+  <circle cx="840" cy="76" r="1.4" fill="#e8b040" opacity=".3"/>
+  <circle cx="1200" cy="90" r="1.4" fill="#e8b040" opacity=".3"/>
+
+  <!-- Floor tiles -->
+  <g stroke="#b87820" stroke-width=".6" opacity=".09">
+    <line x1="0" y1="860" x2="1440" y2="860"/>
+    <line x1="0" y1="880" x2="1440" y2="880"/>
+    <line x1="180" y1="860" x2="180" y2="900"/><line x1="360" y1="860" x2="360" y2="900"/>
+    <line x1="540" y1="860" x2="540" y2="900"/><line x1="720" y1="860" x2="720" y2="900"/>
+    <line x1="900" y1="860" x2="900" y2="900"/><line x1="1080" y1="860" x2="1080" y2="900"/>
+    <line x1="1260" y1="860" x2="1260" y2="900"/>
+  </g>
+</svg></div>
+
+  <div class="ss-side">
+    <div class="ss-side-top"></div>
+    <div class="ghost">IV</div>
+    <div class="ss-side-inner">
+      <div>
+        <div class="v ss-step">04 &middot; Quatrième séquence</div>
+        <div class="v ss-num">IV</div>
+        <p class="v ss-stitle">Antigone et Hémon</p>
+      </div>
+      <div>
+        <div class="ss-chars-lbl v">Personnages</div>
+        <div class="v ss-char">Antigone</div>
+        <div class="v ss-char">Hémon, son fiancé</div>
+      </div>
+    </div>
+  </div>
+  <div class="ss-main">
+    <div class="v ss-eyebrow">Séquence 4 &middot; L'adieu déguisé en amour</div>
+    <h2 class="v ss-heading">Hémon — La Scène d'Amour et de Rupture</h2>
+    <div class="v ss-gl"><div class="grow-line"></div></div>
+    <div class="ss-body">
+      <p class="v">Antigone retrouve <strong>Hémon</strong>, son fiancé, fils de Créon. C'est l'une des scènes les plus tendres et les plus déchirantes de la pièce. Elle lui demande de l'aimer toujours — même laide, même vieille, même si elle n'est plus belle. Elle parle avec une gravité inhabituellement douce.</p>
+      <p class="v">Puis brusquement, elle lui dit qu'il <strong>doit l'oublier</strong>. Qu'il ne doit jamais l'épouser. Qu'il trouvera une autre femme, qu'il aura des enfants, qu'il sera heureux. Elle refuse de lui expliquer pourquoi. Hémon, désorienté et blessé, lui jure un amour inconditionnel.</p>
+      <div class="v callout">
+        « Je voulais être sûre de toi ce matin avant… Je voulais te voir une dernière fois. »
+        <cite>— Antigone à Hémon</cite>
+      </div>
+      <p class="v">C'est un adieu qu'Hémon ne comprend pas encore. <strong>Antigone sait qu'elle va mourir</strong>. Cette scène est son dernier cadeau d'amour : lui offrir une dernière image d'elle vivante, aimante, dans la lumière du matin. Cet amour-là ne doit pas être souillé par ce qui va suivre.</p>
+    </div>
+  </div></div>
+
+<!-- ══════════════════════════
+     SLIDE 6 · ARRESTATION
+══════════════════════════ -->
+<div class="slide scene-slide s-blue" id="s6">
+
+<div class="deco"><svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="s6cold" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#0d1b3e" stop-opacity=".08"/>
+      <stop offset="100%" stop-color="#0d1b3e" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <ellipse cx="720" cy="450" rx="800" ry="500" fill="url(#s6cold)"/>
+
+  <!-- ═ HEAVY VERTICAL BARS — prison/authority top ═ -->
+  <g stroke="#0d1b3e" stroke-width="5" opacity=".1">
+    <line x1="240" y1="0" x2="240" y2="280"/>
+    <line x1="360" y1="0" x2="360" y2="280"/>
+    <line x1="480" y1="0" x2="480" y2="280"/>
+    <line x1="600" y1="0" x2="600" y2="280"/>
+    <line x1="720" y1="0" x2="720" y2="280"/>
+    <line x1="840" y1="0" x2="840" y2="280"/>
+    <line x1="960" y1="0" x2="960" y2="280"/>
+    <line x1="1080" y1="0" x2="1080" y2="280"/>
+    <line x1="1200" y1="0" x2="1200" y2="280"/>
+  </g>
+  <line x1="0" y1="280" x2="1440" y2="280" stroke="#0d1b3e" stroke-width="3" opacity=".1"/>
+  <!-- Bar ends (bolts) -->
+  <g fill="#0d1b3e" opacity=".12">
+    <circle cx="240" cy="280" r="8"/><circle cx="360" cy="280" r="8"/>
+    <circle cx="480" cy="280" r="8"/><circle cx="600" cy="280" r="8"/>
+    <circle cx="720" cy="280" r="8"/><circle cx="840" cy="280" r="8"/>
+    <circle cx="960" cy="280" r="8"/><circle cx="1080" cy="280" r="8"/>
+    <circle cx="1200" cy="280" r="8"/>
+  </g>
+
+  <!-- ═ CHAIN — horizontal across middle ═ -->
+  <g stroke="#0d1b3e" stroke-width="2.2" fill="none" opacity=".13">
+    <!-- Chain links -->
+    <ellipse cx="100" cy="530" rx="18" ry="10" transform="rotate(0 100 530)"/>
+    <ellipse cx="136" cy="530" rx="18" ry="10" transform="rotate(90 136 530)"/>
+    <ellipse cx="172" cy="530" rx="18" ry="10" transform="rotate(0 172 530)"/>
+    <ellipse cx="208" cy="530" rx="18" ry="10" transform="rotate(90 208 530)"/>
+    <ellipse cx="244" cy="530" rx="18" ry="10" transform="rotate(0 244 530)"/>
+    <ellipse cx="280" cy="530" rx="18" ry="10" transform="rotate(90 280 530)"/>
+    <ellipse cx="316" cy="530" rx="18" ry="10" transform="rotate(0 316 530)"/>
+    <ellipse cx="352" cy="530" rx="18" ry="10" transform="rotate(90 352 530)"/>
+    <ellipse cx="388" cy="530" rx="18" ry="10" transform="rotate(0 388 530)"/>
+    <!-- Break/gap then resumes -->
+    <ellipse cx="1060" cy="530" rx="18" ry="10" transform="rotate(0 1060 530)"/>
+    <ellipse cx="1096" cy="530" rx="18" ry="10" transform="rotate(90 1096 530)"/>
+    <ellipse cx="1132" cy="530" rx="18" ry="10" transform="rotate(0 1132 530)"/>
+    <ellipse cx="1168" cy="530" rx="18" ry="10" transform="rotate(90 1168 530)"/>
+    <ellipse cx="1204" cy="530" rx="18" ry="10" transform="rotate(0 1204 530)"/>
+    <ellipse cx="1240" cy="530" rx="18" ry="10" transform="rotate(90 1240 530)"/>
+    <ellipse cx="1276" cy="530" rx="18" ry="10" transform="rotate(0 1276 530)"/>
+    <ellipse cx="1312" cy="530" rx="18" ry="10" transform="rotate(90 1312 530)"/>
+    <ellipse cx="1348" cy="530" rx="18" ry="10" transform="rotate(0 1348 530)"/>
+  </g>
+
+  <!-- ═ ROYAL SEAL — centre ═ -->
+  <circle cx="720" cy="530" r="80" fill="none" stroke="#b87820" stroke-width="1.8" opacity=".22"/>
+  <circle cx="720" cy="530" r="68" fill="none" stroke="#b87820" stroke-width=".8" opacity=".15"/>
+  <circle cx="720" cy="530" r="55" fill="none" stroke="#b87820" stroke-width=".6" opacity=".12"/>
+  <!-- Crown -->
+  <path d="M 692 502 L 688 488 L 698 498 L 720 484 L 742 498 L 752 488 L 748 502 Z"
+        fill="none" stroke="#b87820" stroke-width="1.6" opacity=".28"/>
+  <line x1="692" y1="502" x2="748" y2="502" stroke="#b87820" stroke-width="1.2" opacity=".22"/>
+  <!-- Crown jewels -->
+  <circle cx="720" cy="487" r="4" fill="#b87820" opacity=".22"/>
+  <polygon points="698,498 702,490 706,498" fill="#b87820" opacity=".18"/>
+  <polygon points="734,498 738,490 742,498" fill="#b87820" opacity=".18"/>
+  <!-- Sceptre cross -->
+  <line x1="720" y1="520" x2="720" y2="565" stroke="#b87820" stroke-width="1.8" opacity=".22"/>
+  <line x1="706" y1="538" x2="734" y2="538" stroke="#b87820" stroke-width="1.4" opacity=".2"/>
+  <polygon points="720,568 724,560 716,560" fill="#b87820" opacity=".2"/>
+
+  <!-- ═ GUARD SPEARS — both sides ═ -->
+  <!-- Left spear -->
+  <line x1="80" y1="0" x2="80" y2="900" stroke="#0d1b3e" stroke-width="4" opacity=".1"/>
+  <polygon points="80,40 70,72 80,64 90,72" fill="#0d1b3e" opacity=".18"/>
+  <rect x="74" y="820" width="12" height="22" fill="#0d1b3e" opacity=".14"/>
+  <!-- Spear cross-binding -->
+  <g stroke="#0d1b3e" stroke-width="2.5" opacity=".09">
+    <line x1="64" y1="240" x2="96" y2="240"/>
+    <line x1="64" y1="244" x2="96" y2="244"/>
+    <line x1="64" y1="480" x2="96" y2="480"/>
+    <line x1="64" y1="484" x2="96" y2="484"/>
+    <line x1="64" y1="720" x2="96" y2="720"/>
+    <line x1="64" y1="724" x2="96" y2="724"/>
+  </g>
+  <!-- Right spear -->
+  <line x1="1360" y1="0" x2="1360" y2="900" stroke="#0d1b3e" stroke-width="4" opacity=".1"/>
+  <polygon points="1360,40 1350,72 1360,64 1370,72" fill="#0d1b3e" opacity=".18"/>
+  <rect x="1354" y="820" width="12" height="22" fill="#0d1b3e" opacity=".14"/>
+  <g stroke="#0d1b3e" stroke-width="2.5" opacity=".09">
+    <line x1="1344" y1="240" x2="1376" y2="240"/>
+    <line x1="1344" y1="244" x2="1376" y2="244"/>
+    <line x1="1344" y1="480" x2="1376" y2="480"/>
+    <line x1="1344" y1="484" x2="1376" y2="484"/>
+    <line x1="1344" y1="720" x2="1376" y2="720"/>
+    <line x1="1344" y1="724" x2="1376" y2="724"/>
+  </g>
+
+  <!-- Stone texture — horizontal joints -->
+  <g stroke="#0d1b3e" stroke-width=".7" opacity=".06">
+    <line x1="0" y1="100" x2="1440" y2="100"/>
+    <line x1="0" y1="200" x2="1440" y2="200"/>
+    <line x1="0" y1="700" x2="1440" y2="700"/>
+    <line x1="0" y1="800" x2="1440" y2="800"/>
+    <!-- Stone block vertical joints (staggered) -->
+    <line x1="180" y1="100" x2="180" y2="200"/><line x1="540" y1="100" x2="540" y2="200"/>
+    <line x1="900" y1="100" x2="900" y2="200"/><line x1="1260" y1="100" x2="1260" y2="200"/>
+    <line x1="360" y1="700" x2="360" y2="800"/><line x1="720" y1="700" x2="720" y2="800"/>
+    <line x1="1080" y1="700" x2="1080" y2="800"/>
+  </g>
+</svg></div>
+
+  <div class="ss-side">
+    <div class="ss-side-top"></div>
+    <div class="ghost">V</div>
+    <div class="ss-side-inner">
+      <div>
+        <div class="v ss-step">05 &middot; Cinquième séquence</div>
+        <div class="v ss-num">V</div>
+        <p class="v ss-stitle">L'Arrestation</p>
+      </div>
+      <div>
+        <div class="ss-chars-lbl v">Personnages</div>
+        <div class="v ss-char">Créon</div>
+        <div class="v ss-char">Le Garde</div>
+        <div class="v ss-char">Antigone (arrêtée)</div>
+      </div>
+    </div>
+  </div>
+  <div class="ss-main">
+    <div class="v ss-eyebrow">Séquence 5 &middot; La rébellion découverte</div>
+    <h2 class="v ss-heading">Le Garde — L'Ordre du Roi Bravé</h2>
+    <div class="v ss-gl"><div class="grow-line"></div></div>
+    <div class="ss-body">
+      <p class="v">Un <strong>Garde</strong> vient faire son rapport au roi Créon avec une déférence bureaucratique : le décret a été bravé. Le corps de Polynice a été recouvert de terre et des rites funéraires ont été accomplis. La ville murmure.</p>
+      <p class="v">Créon, furieux, menace les gardes de mort s'ils ne trouvent pas le coupable. Ils repartent surveiller le cadavre. Puis le garde revient — il amène la coupable. <strong>C'est Antigone</strong>, sa propre nièce, la fiancée de son fils.</p>
+      <div class="v callout">
+        « C'est elle. Elle était là, en train de creuser avec ses mains. Comme une petite bête. »
+        <cite>— Le Garde à Créon</cite>
+      </div>
+      <p class="v">Le garde décrit la scène avec une froideur bureaucratique saisissante — il ne pense qu'à sa prime et à son innocence dans l'affaire. <strong>Antigone est parfaitement calme</strong>. Elle ne cherche pas à nier. Elle ne cherche pas à fuir. Elle savait depuis le début que ce moment viendrait, et elle l'a choisi.</p>
+    </div>
+  </div></div>
+
+<!-- ══════════════════════════
+     SLIDE 7 · FACE-À-FACE
+══════════════════════════ -->
+<div class="slide scene-slide s-rose" id="s7">
+
+<div class="deco"><svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="s7tension" cx="50%" cy="50%" r="55%">
+      <stop offset="0%" stop-color="#8a1c1c" stop-opacity=".07"/>
+      <stop offset="100%" stop-color="#8a1c1c" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <ellipse cx="720" cy="450" rx="820" ry="520" fill="url(#s7tension)"/>
+
+  <!-- ═ GIANT SCALES OF JUSTICE — background ═ -->
+  <!-- Central post -->
+  <line x1="720" y1="60" x2="720" y2="600" stroke="#b87820" stroke-width="3" opacity=".22"/>
+  <line x1="720" y1="58" x2="720" y2="64" stroke="#b87820" stroke-width="8" opacity=".25"/>
+  <!-- Balance beam — tilted right (law wins) -->
+  <line x1="240" y1="220" x2="1200" y2="280" stroke="#b87820" stroke-width="3" opacity=".22"/>
+  <!-- Pivot point -->
+  <circle cx="720" cy="250" r="12" fill="#b87820" opacity=".25"/>
+  <circle cx="720" cy="250" r="6" fill="#b87820" opacity=".3"/>
+  <!-- Left chain (higher — moral law) -->
+  <line x1="240" y1="220" x2="240" y2="320" stroke="#b87820" stroke-width="1.8" opacity=".2"/>
+  <g stroke="#b87820" stroke-width="1.4" opacity=".18" fill="none">
+    <ellipse cx="240" cy="234" rx="6" ry="4" transform="rotate(90 240 234)"/>
+    <ellipse cx="240" cy="248" rx="6" ry="4"/>
+    <ellipse cx="240" cy="262" rx="6" ry="4" transform="rotate(90 240 262)"/>
+    <ellipse cx="240" cy="276" rx="6" ry="4"/>
+    <ellipse cx="240" cy="290" rx="6" ry="4" transform="rotate(90 240 290)"/>
+    <ellipse cx="240" cy="304" rx="6" ry="4"/>
+  </g>
+  <!-- Left pan -->
+  <path d="M 160 320 Q 240 350 320 320" fill="none" stroke="#b87820" stroke-width="2" opacity=".2"/>
+  <line x1="160" y1="320" x2="160" y2="326" stroke="#b87820" stroke-width="1.5" opacity=".2"/>
+  <line x1="320" y1="320" x2="320" y2="326" stroke="#b87820" stroke-width="1.5" opacity=".2"/>
+  <!-- Right chain (lower — political law) -->
+  <line x1="1200" y1="280" x2="1200" y2="420" stroke="#b87820" stroke-width="1.8" opacity=".2"/>
+  <g stroke="#b87820" stroke-width="1.4" opacity=".18" fill="none">
+    <ellipse cx="1200" cy="294" rx="6" ry="4" transform="rotate(90 1200 294)"/>
+    <ellipse cx="1200" cy="308" rx="6" ry="4"/>
+    <ellipse cx="1200" cy="322" rx="6" ry="4" transform="rotate(90 1200 322)"/>
+    <ellipse cx="1200" cy="336" rx="6" ry="4"/>
+    <ellipse cx="1200" cy="350" rx="6" ry="4" transform="rotate(90 1200 350)"/>
+    <ellipse cx="1200" cy="364" rx="6" ry="4"/>
+    <ellipse cx="1200" cy="378" rx="6" ry="4" transform="rotate(90 1200 378)"/>
+    <ellipse cx="1200" cy="392" rx="6" ry="4"/>
+    <ellipse cx="1200" cy="406" rx="6" ry="4" transform="rotate(90 1200 406)"/>
+  </g>
+  <!-- Right pan (lower) -->
+  <path d="M 1120 420 Q 1200 452 1280 420" fill="none" stroke="#b87820" stroke-width="2" opacity=".2"/>
+  <line x1="1120" y1="420" x2="1120" y2="426" stroke="#b87820" stroke-width="1.5" opacity=".2"/>
+  <line x1="1280" y1="420" x2="1280" y2="426" stroke="#b87820" stroke-width="1.5" opacity=".2"/>
+
+  <!-- ═ THRONE — right side ═ -->
+  <g fill="none" stroke="#b87820" stroke-width="1.8" opacity=".18">
+    <!-- Throne back -->
+    <rect x="1100" y="560" width="220" height="280"/>
+    <!-- Throne seat -->
+    <rect x="1086" y="700" width="248" height="16"/>
+    <!-- Throne arms -->
+    <line x1="1100" y1="700" x2="1100" y2="760"/>
+    <line x1="1320" y1="700" x2="1320" y2="760"/>
+    <!-- Legs -->
+    <line x1="1106" y1="840" x2="1100" y2="900"/>
+    <line x1="1314" y1="840" x2="1320" y2="900"/>
+    <!-- Crown finial top centre -->
+    <path d="M 1188 560 L 1184 540 L 1194 550 L 1210 536 L 1226 550 L 1236 540 L 1232 560"/>
+    <!-- Seat cushion lines -->
+    <line x1="1100" y1="716" x2="1320" y2="716"/>
+  </g>
+
+  <!-- ═ CONFRONTATION LIGHTNING ═ -->
+  <path d="M 500 350 L 530 410 L 510 415 L 545 480 L 522 484 L 560 550"
+        fill="none" stroke="#8a1c1c" stroke-width="2" opacity=".18"/>
+  <path d="M 940 350 L 910 410 L 930 415 L 895 480 L 918 484 L 880 550"
+        fill="none" stroke="#8a1c1c" stroke-width="2" opacity=".18"/>
+
+  <!-- ═ CRACKED EARTH — bottom ═ -->
+  <g stroke="#8a1c1c" stroke-width="1.4" opacity=".14" fill="none">
+    <path d="M 0 820 L 180 820 L 220 840 L 280 820 L 400 820"/>
+    <path d="M 280 820 L 300 860 L 320 840 L 360 860 L 380 820"/>
+    <path d="M 400 820 L 480 820 L 520 840 L 580 820 L 700 820"/>
+    <path d="M 580 820 L 590 850 L 610 835 L 640 850 L 660 820"/>
+    <path d="M 720 820 L 860 820 L 900 840 L 960 820 L 1100 820"/>
+    <path d="M 900 820 L 920 858 L 940 840 L 970 858 L 990 820"/>
+    <path d="M 1100 820 L 1200 820 L 1240 840 L 1300 820 L 1440 820"/>
+  </g>
+
+  <!-- Border diamonds -->
+  <g fill="none" stroke="#b87820" stroke-width=".9" opacity=".2">
+    <polygon points="720,4 732,16 720,28 708,16"/>
+    <polygon points="4,450 16,462 4,474 -8,462" opacity=".15"/>
+    <polygon points="1436,450 1448,462 1436,474 1424,462" opacity=".15"/>
+  </g>
+</svg></div>
+
+  <div class="ss-side">
+    <div class="ss-side-top"></div>
+    <div class="ghost">VI</div>
+    <div class="ss-side-inner">
+      <div>
+        <div class="v ss-step">06 &middot; Sixième séquence</div>
+        <div class="v ss-num">VI</div>
+        <p class="v ss-stitle">Le Grand Face-à-Face</p>
+      </div>
+      <div>
+        <div class="ss-chars-lbl v">Personnages</div>
+        <div class="v ss-char">Antigone</div>
+        <div class="v ss-char">Créon</div>
+      </div>
+    </div>
+  </div>
+  <div class="ss-main">
+    <div class="v ss-eyebrow">Séquence 6 &middot; Le dialogue central de la pièce</div>
+    <h2 class="v ss-heading">Antigone et Créon — L'Affrontement Philosophique</h2>
+    <div class="v ss-gl"><div class="grow-line"></div></div>
+    <div class="ss-body">
+      <p class="v">C'est <strong>la scène centrale et la plus longue de toute la pièce</strong>. Créon renvoie les gardes et tente de sauver Antigone en secret : il lui ordonne de nier, de se taire, de vivre. Il l'implore presque. Il lui révèle que Polynice n'était qu'un bandit — les deux frères se valaient moralement.</p>
+      <p class="v">Antigone refuse toute compromission avec une <strong>intransigeance absolue</strong>. Elle revendique son acte. Alors Créon lui expose la réalité du pouvoir : gouverner c'est choisir le moindre mal et l'assumer, sacrifier l'idéal à l'ordre collectif. Il a lui aussi dû renoncer à ses rêves de jeunesse.</p>
+      <div class="v callout">
+        « Vous me dégoûtez tous avec votre bonheur ! Avec votre vie qu'il faut aimer coûte que coûte. »
+        <cite>— Antigone à Créon</cite>
+      </div>
+      <p class="v">Antigone répond qu'elle ne veut pas d'un bonheur médiocre taillé dans le renoncement. Elle veut <em>tout</em> — ou rien. La pureté ou la mort. Créon, épuisé et furieux, condamne finalement Antigone à être <strong>emmurée vivante</strong>. La tragédie est désormais irréversible.</p>
+    </div>
+  </div></div>
+
+<!-- ══════════════════════════
+     SLIDE 8 · ISMÈNE / HÉMON
+══════════════════════════ -->
+<div class="slide scene-slide s-cream" id="s8">
+
+<div class="deco"><svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="s8iso" cx="50%" cy="50%" r="55%">
+      <stop offset="0%" stop-color="#8a1c1c" stop-opacity=".04"/>
+      <stop offset="60%" stop-color="#8a1c1c" stop-opacity=".09"/>
+      <stop offset="100%" stop-color="#8a1c1c" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <ellipse cx="720" cy="450" rx="820" ry="520" fill="url(#s8iso)"/>
+
+  <!-- ═ CONCENTRIC ISOLATION RINGS ═ -->
+  <circle cx="720" cy="450" r="80"  fill="none" stroke="#8a1c1c" stroke-width=".8" stroke-dasharray="6 8" opacity=".18"/>
+  <circle cx="720" cy="450" r="150" fill="none" stroke="#8a1c1c" stroke-width=".7" stroke-dasharray="6 10" opacity=".15"/>
+  <circle cx="720" cy="450" r="240" fill="none" stroke="#8a1c1c" stroke-width=".6" stroke-dasharray="7 12" opacity=".12"/>
+  <circle cx="720" cy="450" r="340" fill="none" stroke="#b87820" stroke-width=".6" stroke-dasharray="8 14" opacity=".1"/>
+  <circle cx="720" cy="450" r="450" fill="none" stroke="#b87820" stroke-width=".5" stroke-dasharray="9 16" opacity=".08"/>
+  <!-- Arrow marks on rings pointing inward -->
+  <g fill="#8a1c1c" opacity=".16">
+    <polygon points="720,370 715,380 725,380"/> <!-- top -->
+    <polygon points="720,530 725,520 715,520"/> <!-- bottom -->
+    <polygon points="640,450 650,445 650,455"/> <!-- left -->
+    <polygon points="800,450 790,445 790,455"/> <!-- right -->
+  </g>
+
+  <!-- ═ SHADOW SILHOUETTES at periphery — three figures ═ -->
+  <!-- ISMÈNE — left edge, turning away -->
+  <g opacity=".1" fill="#6b5c3e">
+    <ellipse cx="120" cy="380" rx="24" ry="30"/>
+    <path d="M 96 408 C 86 450 80 510 74 600 L 164 600 C 158 510 152 450 144 408 Z"/>
+    <path d="M 96 440 C 68 436 44 440 24 450 L 26 464 C 44 454 70 452 96 456 Z"/>
+  </g>
+  <!-- HÉMON — right edge, fist raised -->
+  <g opacity=".1" fill="#3d3220">
+    <ellipse cx="1320" cy="360" rx="26" ry="32"/>
+    <path d="M 1294 390 C 1286 432 1280 500 1276 600 L 1364 600 C 1360 500 1354 432 1346 390 Z"/>
+    <path d="M 1346 406 C 1376 400 1408 394 1430 398 L 1428 412 C 1406 408 1376 414 1346 420 Z"/>
+    <!-- Raised fist -->
+    <rect x="1408" y="370" width="28" height="28" rx="6"/>
+    <line x1="1408" y1="378" x2="1436" y2="378" stroke="#3d3220" stroke-width="1.5" opacity=".3"/>
+    <line x1="1408" y1="386" x2="1436" y2="386" stroke="#3d3220" stroke-width="1.5" opacity=".3"/>
+  </g>
+  <!-- CRÉON — top, seated (throne outline) -->
+  <g opacity=".08" fill="#0d1b3e">
+    <ellipse cx="720" cy="80" rx="28" ry="34"/>
+    <!-- Crown -->
+    <polygon points="697,62 694,48 706,58 720,44 734,58 746,48 743,62"/>
+    <path d="M 692 112 C 686 140 684 180 682 240 L 756 240 C 754 180 752 140 748 112 Z"/>
+  </g>
+
+  <!-- ═ DRAPED CHAIN — across the scene ═ -->
+  <g stroke="#0d1b3e" stroke-width="2" fill="none" opacity=".1">
+    <!-- Left draped chain -->
+    <path d="M 0 700 C 80 680 140 700 200 680 C 260 660 300 680 360 665"/>
+    <ellipse cx="40" cy="692" rx="10" ry="6" transform="rotate(20 40 692)"/>
+    <ellipse cx="80" cy="688" rx="10" ry="6" transform="rotate(-10 80 688)"/>
+    <ellipse cx="120" cy="692" rx="10" ry="6" transform="rotate(25 120 692)"/>
+    <ellipse cx="160" cy="682" rx="10" ry="6" transform="rotate(-5 160 682)"/>
+    <ellipse cx="200" cy="682" rx="10" ry="6" transform="rotate(20 200 682)"/>
+    <ellipse cx="240" cy="672" rx="10" ry="6" transform="rotate(-12 240 672)"/>
+    <ellipse cx="280" cy="674" rx="10" ry="6" transform="rotate(18 280 674)"/>
+    <ellipse cx="320" cy="668" rx="10" ry="6" transform="rotate(-8 320 668)"/>
+    <!-- Right chain -->
+    <path d="M 1440 700 C 1360 680 1300 700 1240 680 C 1180 660 1140 680 1080 665"/>
+    <ellipse cx="1400" cy="692" rx="10" ry="6" transform="rotate(-20 1400 692)"/>
+    <ellipse cx="1360" cy="688" rx="10" ry="6" transform="rotate(10 1360 688)"/>
+    <ellipse cx="1320" cy="692" rx="10" ry="6" transform="rotate(-25 1320 692)"/>
+    <ellipse cx="1280" cy="682" rx="10" ry="6" transform="rotate(5 1280 682)"/>
+    <ellipse cx="1240" cy="682" rx="10" ry="6" transform="rotate(-20 1240 682)"/>
+    <ellipse cx="1200" cy="672" rx="10" ry="6" transform="rotate(12 1200 672)"/>
+  </g>
+
+  <!-- ═ BROKEN LAUREL BRANCH ═ -->
+  <path d="M 450 760 C 490 748 530 750 570 742 C 600 736 620 740 640 734"
+        fill="none" stroke="#2e6e50" stroke-width="1.5" opacity=".2"/>
+  <g fill="#2e6e50" opacity=".18">
+    <ellipse cx="468" cy="754" rx="9" ry="5" transform="rotate(-25 468 754)"/>
+    <ellipse cx="498" cy="748" rx="9" ry="5" transform="rotate(-10 498 748)"/>
+    <ellipse cx="528" cy="746" rx="8" ry="5" transform="rotate(8 528 746)"/>
+    <ellipse cx="556" cy="742" rx="8" ry="5" transform="rotate(22 556 742)"/>
+    <ellipse cx="582" cy="738" rx="8" ry="5" transform="rotate(35 582 738)"/>
+    <ellipse cx="606" cy="736" rx="7" ry="5" transform="rotate(46 606 736)"/>
+  </g>
+  <!-- Broken stem -->
+  <line x1="640" y1="734" x2="660" y2="730" stroke="#2e6e50" stroke-width="1.5" opacity=".2"/>
+  <path d="M 660 730 L 664 724 M 658 732 L 664 736" stroke="#2e6e50" stroke-width="1.2" opacity=".18"/>
+  <!-- Fallen leaves -->
+  <g fill="#2e6e50" opacity=".15">
+    <ellipse cx="680" cy="758" rx="8" ry="5" transform="rotate(60 680 758)"/>
+    <ellipse cx="700" cy="772" rx="7" ry="4" transform="rotate(-40 700 772)"/>
+    <ellipse cx="720" cy="754" rx="6" ry="4" transform="rotate(80 720 754)"/>
+  </g>
+</svg></div>
+
+  <div class="ss-side">
+    <div class="ss-side-top"></div>
+    <div class="ghost">VII</div>
+    <div class="ss-side-inner">
+      <div>
+        <div class="v ss-step">07 &middot; Septième séquence</div>
+        <div class="v ss-num">VII</div>
+        <p class="v ss-stitle">Ismène, puis Hémon</p>
+      </div>
+      <div>
+        <div class="ss-chars-lbl v">Personnages</div>
+        <div class="v ss-char">Ismène</div>
+        <div class="v ss-char">Hémon</div>
+        <div class="v ss-char">Créon</div>
+      </div>
+    </div>
+  </div>
+  <div class="ss-main">
+    <div class="v ss-eyebrow">Séquence 7 &middot; Les tentatives désespérées</div>
+    <h2 class="v ss-heading">La Solitude Choisie — Deux Supplications Rejetées</h2>
+    <div class="v ss-gl"><div class="grow-line"></div></div>
+    <div class="ss-body">
+      <p class="v"><strong>Ismène</strong> surgit devant Créon, rongée par la culpabilité. Elle ment avec courage : elle aussi a participé à l'enterrement, elle veut mourir avec sa sœur. C'est une tentative de rachat tardif. Mais <strong>Antigone la repousse</strong> avec une rigueur implacable : non. Ismène a refusé. Ce sacrifice lui appartient seul.</p>
+      <div class="v callout">
+        « Tu as choisi la vie, et moi la mort. Laisse-moi ma mort. »
+        <cite>— Antigone à Ismène</cite>
+      </div>
+      <p class="v"><strong>Hémon</strong> vient ensuite trouver son père avec calme et respect. Il rapporte que le peuple de Thèbes murmure en faveur d'Antigone. Créon interprète cela comme de la soumission. Mais quand il comprend que la mort d'Antigone est irrévocable, Hémon se lève, froid, et prévient son père : <em>si Antigone meurt, il ne lui survivra pas.</em></p>
+      <p class="v">Créon prend cela pour du chantage adolescent et laisse partir son fils. <strong>C'est la plus grave erreur de la pièce.</strong> La scène révèle la solitude absolue d'Antigone : même dans la mort, elle n'accepte aucune compagnie non choisie.</p>
+    </div>
+  </div></div>
+
+<!-- ══════════════════════════
+     SLIDE 9 · LETTRE
+══════════════════════════ -->
+<div class="slide scene-slide s-sage" id="s9">
+
+<div class="deco"><svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="s9parch" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#b87820" stop-opacity=".1"/>
+      <stop offset="100%" stop-color="#b87820" stop-opacity=".02"/>
+    </linearGradient>
+    <radialGradient id="s9ink" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1a1408" stop-opacity=".14"/>
+      <stop offset="100%" stop-color="#1a1408" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Giant parchment background -->
+  <rect x="160" y="60" width="900" height="760" rx="6" fill="url(#s9parch)"/>
+  <rect x="160" y="60" width="900" height="760" rx="6" fill="none" stroke="#b87820" stroke-width="1.5" opacity=".16"/>
+  <!-- Parchment folds (horizontal) -->
+  <line x1="160" y1="310" x2="1060" y2="310" stroke="#b87820" stroke-width=".7" opacity=".1"/>
+  <line x1="160" y1="560" x2="1060" y2="560" stroke="#b87820" stroke-width=".7" opacity=".1"/>
+  <!-- Parchment fold shadows -->
+  <rect x="160" y="308" width="900" height="4" fill="#b87820" opacity=".04"/>
+  <rect x="160" y="558" width="900" height="4" fill="#b87820" opacity=".04"/>
+
+  <!-- Writing lines on parchment — starting full, trailing off to right -->
+  <g stroke="#3d3220" stroke-width="1" opacity=".12">
+    <line x1="200" y1="130" x2="1000" y2="130"/>
+    <line x1="200" y1="158" x2="980" y2="158"/>
+    <line x1="200" y1="186" x2="950" y2="186"/>
+    <line x1="200" y1="214" x2="920" y2="214"/>
+    <line x1="200" y1="242" x2="880" y2="242"/>
+    <line x1="200" y1="270" x2="840" y2="270"/>
+    <!-- Gap for fold -->
+    <line x1="200" y1="330" x2="880" y2="330"/>
+    <line x1="200" y1="358" x2="840" y2="358"/>
+    <line x1="200" y1="386" x2="800" y2="386"/>
+    <line x1="200" y1="414" x2="750" y2="414"/>
+    <line x1="200" y1="442" x2="700" y2="442"/>
+    <line x1="200" y1="470" x2="640" y2="470"/>
+    <line x1="200" y1="498" x2="580" y2="498"/>
+    <line x1="200" y1="526" x2="520" y2="526"/>
+    <!-- Gap for fold -->
+    <line x1="200" y1="580" x2="460" y2="580"/>
+    <line x1="200" y1="608" x2="380" y2="608"/>
+    <line x1="200" y1="636" x2="300" y2="636"/>
+    <!-- Scratch out line -->
+    <line x1="200" y1="664" x2="560" y2="664"/>
+    <line x1="198" y1="660" x2="562" y2="668" stroke="#8a1c1c" stroke-width="1.2" opacity=".16"/>
+    <line x1="198" y1="668" x2="562" y2="660" stroke="#8a1c1c" stroke-width="1.2" opacity=".12"/>
+    <line x1="200" y1="692" x2="380" y2="692"/>
+    <line x1="200" y1="720" x2="250" y2="720"/>
+    <!-- Final word, trailed off -->
+    <line x1="200" y1="748" x2="280" y2="748"/>
+  </g>
+
+  <!-- ═ GIANT QUILL ═ -->
+  <path d="M 1220 120 C 1240 200 1230 340 1160 500" fill="none" stroke="#b87820" stroke-width="3" opacity=".18"/>
+  <path d="M 1220 120 C 1280 160 1280 290 1200 460 C 1230 310 1240 200 1220 120"
+        fill="none" stroke="#b87820" stroke-width="1.2" opacity=".12"/>
+  <!-- Barbs -->
+  <g stroke="#b87820" stroke-width="1.4" opacity=".16">
+    <line x1="1244" y1="168" x2="1226" y2="148"/><line x1="1248" y1="200" x2="1228" y2="178"/>
+    <line x1="1252" y1="236" x2="1230" y2="212"/><line x1="1254" y1="272" x2="1232" y2="248"/>
+    <line x1="1254" y1="310" x2="1230" y2="286"/><line x1="1250" y1="346" x2="1228" y2="322"/>
+    <line x1="1244" y1="382" x2="1222" y2="358"/><line x1="1234" y1="416" x2="1212" y2="394"/>
+    <line x1="1220" y1="446" x2="1200" y2="424"/>
+  </g>
+  <!-- Nib -->
+  <polygon points="1160,500 1148,520 1168,520" fill="#b87820" opacity=".2"/>
+
+  <!-- ═ INKWELL ═ -->
+  <ellipse cx="1280" cy="620" rx="42" ry="28" fill="none" stroke="#1a1408" stroke-width="1.8" opacity=".2"/>
+  <ellipse cx="1280" cy="612" rx="40" ry="24" fill="none" stroke="#1a1408" stroke-width=".8" opacity=".14"/>
+  <ellipse cx="1280" cy="612" rx="28" ry="16" fill="#1a1408" opacity=".08"/>
+  <!-- Inkwell body -->
+  <path d="M 1238 620 C 1242 660 1250 680 1280 686 C 1310 680 1318 660 1322 620"
+        fill="none" stroke="#1a1408" stroke-width="1.5" opacity=".18"/>
+  <!-- Ink surface gloss -->
+  <ellipse cx="1270" cy="612" rx="10" ry="5" fill="#1a1408" opacity=".1" transform="rotate(-15 1270 612)"/>
+
+  <!-- ═ CRUMPLED DISCARDED PAPERS ═ -->
+  <g fill="none" stroke="#b87820" stroke-width="1.2" opacity=".16">
+    <!-- Paper 1 -->
+    <path d="M 1100 760 C 1094 744 1100 728 1116 730 C 1108 740 1118 752 1112 764 Z"/>
+    <path d="M 1112 764 C 1118 780 1106 786 1098 778 C 1108 774 1106 762 1112 764 Z"/>
+    <path d="M 1100 760 C 1088 766 1084 754 1090 748 C 1092 756 1100 752 1100 760 Z"/>
+    <!-- Paper 2 -->
+    <path d="M 1160 780 C 1154 764 1160 748 1176 750 C 1168 760 1178 772 1172 784 Z"/>
+    <path d="M 1172 784 C 1178 800 1166 806 1158 798 C 1168 794 1166 782 1172 784 Z"/>
+    <path d="M 1160 780 C 1148 786 1144 774 1150 768 C 1152 776 1160 772 1160 780 Z"/>
+    <!-- Paper 3 -->
+    <path d="M 1220 770 C 1214 752 1222 736 1238 740 C 1228 752 1240 766 1232 778 Z"/>
+  </g>
+
+  <!-- ═ LARGE INK BLOT ═ -->
+  <ellipse cx="600" cy="780" rx="45" ry="30" fill="#1a1408" opacity=".07"/>
+  <ellipse cx="618" cy="790" rx="18" ry="14" fill="#1a1408" opacity=".06"/>
+  <ellipse cx="578" cy="788" rx="14" ry="10" fill="#1a1408" opacity=".05"/>
+  <ellipse cx="604" cy="760" rx="8" ry="6" fill="#1a1408" opacity=".04"/>
+  <!-- Ink drop -->
+  <circle cx="628" cy="798" r="4" fill="#1a1408" opacity=".07"/>
+  <circle cx="636" cy="804" r="2" fill="#1a1408" opacity=".05"/>
+
+  <!-- Light border -->
+  <rect x="0" y="0" width="1440" height="4" fill="#b87820" opacity=".12"/>
+  <rect x="0" y="896" width="1440" height="4" fill="#b87820" opacity=".12"/>
+</svg></div>
+
+  <div class="ss-side">
+    <div class="ss-side-top"></div>
+    <div class="ghost">VIII</div>
+    <div class="ss-side-inner">
+      <div>
+        <div class="v ss-step">08 &middot; Huitième séquence</div>
+        <div class="v ss-num">VIII</div>
+        <p class="v ss-stitle">La Lettre Impossible</p>
+      </div>
+      <div>
+        <div class="ss-chars-lbl v">Personnages</div>
+        <div class="v ss-char">Antigone</div>
+        <div class="v ss-char">Le Garde</div>
+      </div>
+    </div>
+  </div>
+  <div class="ss-main">
+    <div class="v ss-eyebrow">Séquence 8 &middot; Le doute de l'héroïne</div>
+    <h2 class="v ss-heading">Le Garde — La Lettre à Hémon et le Doute</h2>
+    <div class="v ss-gl"><div class="grow-line"></div></div>
+    <div class="ss-body">
+      <p class="v">Condamnée, Antigone attend d'être emmenée vers sa grotte. Elle se retrouve seule avec un <strong>Garde</strong> — homme ordinaire, borné, préoccupé par ses primes et ses galons. Il est le représentant du monde banal qu'Antigone refuse.</p>
+      <p class="v">Elle lui demande d'écrire une lettre pour <strong>Hémon</strong>. Il accepte à contrecœur, maladroitement. Mais quand Antigone commence à dicter, les mots ne viennent pas. Comment expliquer ? Que dire ? Pourquoi a-t-elle agi ainsi ?</p>
+      <div class="v callout">
+        « Je ne sais plus pourquoi je meurs. »
+        <cite>— Antigone, seule</cite>
+      </div>
+      <p class="v">C'est <strong>le moment le plus humain et le plus fragile de toute la pièce</strong>. L'héroïne absolue doute. Elle efface tout. La lettre ne partira pas. Ce doute vertigineux rend Antigone plus grande encore : elle marche vers la mort sans même être sûre du sens de son sacrifice — par pure fidélité à ce qu'elle est, sans justification.</p>
+    </div>
+  </div></div>
+
+<!-- ══════════════════════════
+     SLIDE 10 · MESSAGER
+══════════════════════════ -->
+<div class="slide scene-slide s-blue" id="s10">
+
+<div class="deco"><svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="s10dark" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0d1b3e" stop-opacity=".12"/>
+      <stop offset="100%" stop-color="#0d1b3e" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="s10cave" cx="50%" cy="90%" r="40%">
+      <stop offset="0%" stop-color="#0d1b3e" stop-opacity=".22"/>
+      <stop offset="100%" stop-color="#0d1b3e" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect x="0" y="0" width="1440" height="900" fill="url(#s10dark)"/>
+  <ellipse cx="720" cy="900" rx="600" ry="400" fill="url(#s10cave)"/>
+
+  <!-- ═ CAVE MOUTH — ominous arch at bottom ═ -->
+  <path d="M 360 900 L 360 760 Q 360 640 720 640 Q 1080 640 1080 760 L 1080 900"
+        fill="none" stroke="#0d1b3e" stroke-width="2.2" opacity=".22"/>
+  <path d="M 440 900 L 440 790 Q 440 700 720 700 Q 1000 700 1000 790 L 1000 900"
+        fill="none" stroke="#0d1b3e" stroke-width="1.4" opacity=".14"/>
+  <!-- Stalactites -->
+  <g fill="#0d1b3e" opacity=".14">
+    <polygon points="500,640 510,680 520,640"/><polygon points="560,640 572,690 584,640"/>
+    <polygon points="620,640 634,685 648,640"/><polygon points="684,640 698,692 712,640"/>
+    <polygon points="728,640 742,690 756,640"/><polygon points="796,640 808,684 820,640"/>
+    <polygon points="856,640 870,688 884,640"/><polygon points="916,640 928,678 940,640"/>
+    <polygon points="972,640 982,674 992,640"/>
+  </g>
+
+  <!-- ═ THREE CASCADING FIGURES ═ -->
+  <!-- Figure 1: Antigone — top, slight left -->
+  <g opacity=".14" fill="#8a1c1c">
+    <ellipse cx="420" cy="160" rx="20" ry="24"/>
+    <path d="M 400 182 C 392 220 386 262 380 340 L 458 340 C 452 262 446 220 440 182 Z"/>
+    <!-- Arms falling outward -->
+    <path d="M 400 210 C 370 200 340 202 318 210 L 320 224 C 342 216 370 216 400 224 Z"/>
+    <path d="M 440 210 C 470 200 500 202 522 210 L 520 224 C 498 216 470 216 440 224 Z"/>
+  </g>
+  <!-- Downward arrow 1 -->
+  <line x1="420" y1="346" x2="420" y2="400" stroke="#8a1c1c" stroke-width="1.8" opacity=".18"/>
+  <polygon points="420,404 413,390 427,390" fill="#8a1c1c" opacity=".18"/>
+
+  <!-- Figure 2: Hémon — middle, slight right -->
+  <g opacity=".12" fill="#0d1b3e">
+    <ellipse cx="780" cy="380" rx="20" ry="24"/>
+    <path d="M 760 402 C 752 440 746 490 740 560 L 818 560 C 812 490 806 440 800 402 Z"/>
+    <path d="M 760 430 C 730 420 700 422 678 430 L 680 444 C 702 436 730 436 760 444 Z"/>
+    <path d="M 800 428 C 830 418 862 420 884 428 L 882 442 C 860 434 830 434 800 442 Z"/>
+    <!-- Sword held / falling -->
+    <line x1="850" y1="440" x2="900" y2="500" stroke="#0d1b3e" stroke-width="3" opacity=".22"/>
+    <polygon points="900,500 893,490 907,490" fill="#0d1b3e" opacity=".22"/>
+    <line x1="846" y1="436" x2="864" y2="430" stroke="#0d1b3e" stroke-width="1.5" opacity=".18"/>
+  </g>
+  <!-- Downward arrow 2 -->
+  <line x1="780" y1="566" x2="780" y2="620" stroke="#0d1b3e" stroke-width="1.8" opacity=".15"/>
+  <polygon points="780,624 773,610 787,610" fill="#0d1b3e" opacity=".15"/>
+
+  <!-- Figure 3: Eurydice — smaller, right, lower -->
+  <g opacity=".11" fill="#6b5c3e">
+    <ellipse cx="1140" cy="560" rx="18" ry="22"/>
+    <path d="M 1122 580 C 1116 612 1112 650 1108 710 L 1172 710 C 1168 650 1164 612 1158 580 Z"/>
+    <path d="M 1122 600 C 1102 596 1082 600 1068 608 L 1070 620 C 1084 612 1104 610 1122 614 Z"/>
+    <path d="M 1158 600 C 1178 596 1198 592 1212 598 L 1210 610 C 1196 604 1178 606 1158 614 Z"/>
+  </g>
+  <!-- Downward arrow 3 -->
+  <line x1="1140" y1="716" x2="1140" y2="760" stroke="#6b5c3e" stroke-width="1.8" opacity=".14"/>
+  <polygon points="1140,764 1133,750 1147,750" fill="#6b5c3e" opacity=".14"/>
+
+  <!-- ═ BLOOD DROPS — scattered ═ -->
+  <g fill="#8a1c1c" opacity=".18">
+    <path d="M 500 320 C 496 312 496 304 500 298 C 504 304 504 312 500 320 Z"/>
+    <path d="M 520 360 C 516 352 516 344 520 338 C 524 344 524 352 520 360 Z"/>
+    <path d="M 460 350 C 456 342 456 334 460 328 C 464 334 464 342 460 350 Z"/>
+    <path d="M 860 498 C 856 490 856 482 860 476 C 864 482 864 490 860 498 Z"/>
+    <path d="M 880 540 C 876 532 876 524 880 518 C 884 524 884 532 880 540 Z"/>
+    <path d="M 840 520 C 836 512 836 504 840 498 C 844 504 844 512 840 520 Z"/>
+  </g>
+
+  <!-- ═ MESSENGER RUNNING — small figure ═ -->
+  <g opacity=".13" fill="none" stroke="#b87820" stroke-width="1.8">
+    <!-- Head -->
+    <circle cx="260" cy="620" r="16" fill="#b87820" opacity=".13" stroke="none"/>
+    <!-- Leaning body -->
+    <path d="M 252 636 C 244 660 238 688 232 730"/>
+    <path d="M 268 636 C 268 660 270 690 272 730"/>
+    <!-- Running legs -->
+    <path d="M 232 730 C 220 760 210 780 200 810"/>
+    <path d="M 272 730 C 286 756 294 774 300 804"/>
+    <!-- Arms pumping -->
+    <path d="M 252 660 C 234 650 218 648 208 654"/>
+    <path d="M 268 655 C 288 644 306 640 316 644"/>
+  </g>
+</svg></div>
+
+  <div class="ss-side">
+    <div class="ss-side-top"></div>
+    <div class="ghost">IX</div>
+    <div class="ss-side-inner">
+      <div>
+        <div class="v ss-step">09 &middot; Neuvième séquence</div>
+        <div class="v ss-num">IX</div>
+        <p class="v ss-stitle">Le Messager</p>
+      </div>
+      <div>
+        <div class="ss-chars-lbl v">Personnages</div>
+        <div class="v ss-char">Le Messager</div>
+        <div class="v ss-char">Créon</div>
+        <div class="v ss-char">Eurydice</div>
+      </div>
+    </div>
+  </div>
+  <div class="ss-main">
+    <div class="v ss-eyebrow">Séquence 9 &middot; Les trois morts annoncées</div>
+    <h2 class="v ss-heading">Le Messager — La Catastrophe en Cascade</h2>
+    <div class="v ss-gl"><div class="grow-line"></div></div>
+    <div class="ss-body">
+      <p class="v">Un <strong>Messager</strong> arrive en hâte. Il doit rapporter à Créon et à la reine <strong>Eurydice</strong> — qui tricotait paisiblement — ce qui vient de se passer dans la grotte.</p>
+      <ul class="v pts">
+        <li><strong>Antigone</strong> s'est pendue avec sa ceinture avant que la mort lente ne l'emporte</li>
+        <li><strong>Hémon</strong>, parvenu à s'introduire dans la grotte, a trouvé Antigone morte. Fou de douleur, il a tenté de transpercer son père Créon de son épée — il a manqué. Puis il s'est retourné la lame contre lui-même</li>
+      </ul>
+      <div class="v callout">
+        « Il lui a craché au visage, et puis il a enfoncé son épée dans le ventre. »
+        <cite>— Le Messager</cite>
+      </div>
+      <p class="v"><strong>Eurydice</strong> écoute tout cela sans un mot. Elle pose calmement son tricot et sort. Le Messager ne comprend pas encore ce silence. Le spectateur, lui, <em>a déjà compris</em>. La reine va mourir — troisième et dernière victime de la chaîne tragique mise en mouvement par le décret de Créon.</p>
+    </div>
+  </div></div>
+
+<!-- ══════════════════════════
+     SLIDE 11 · ÉPILOGUE
+══════════════════════════ -->
+<div class="slide scene-slide s-cream" id="s11">
+
+<div class="deco"><svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="s11desolate" cx="50%" cy="60%" r="60%">
+      <stop offset="0%" stop-color="#b87820" stop-opacity=".06"/>
+      <stop offset="100%" stop-color="#b87820" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <ellipse cx="720" cy="540" rx="820" ry="520" fill="url(#s11desolate)"/>
+
+  <!-- ═ GRAND EMPTY THRONE — right centre ═ -->
+  <g fill="none" stroke="#b87820" stroke-width="1.8" opacity=".2">
+    <!-- Back -->
+    <rect x="960" y="400" width="320" height="380"/>
+    <!-- Seat -->
+    <rect x="944" y="580" width="352" height="24"/>
+    <!-- Arms -->
+    <line x1="960" y1="580" x2="960" y2="660"/>
+    <line x1="1280" y1="580" x2="1280" y2="660"/>
+    <rect x="944" y="568" width="68" height="16" rx="4"/>
+    <rect x="1228" y="568" width="68" height="16" rx="4"/>
+    <!-- Legs -->
+    <line x1="968" y1="780" x2="962" y2="870"/>
+    <line x1="1272" y1="780" x2="1278" y2="870"/>
+    <!-- Step/plinth -->
+    <rect x="916" y="860" width="408" height="20"/>
+    <rect x="890" y="878" width="460" height="14"/>
+    <!-- Crown detail on throne back -->
+    <path d="M 1064 408 L 1060 388 L 1072 400 L 1120 380 L 1168 400 L 1180 388 L 1176 408"/>
+    <!-- Throne cushion -->
+    <line x1="964" y1="598" x2="1276" y2="598"/>
+    <!-- Scrollwork on throne back -->
+    <path d="M 988 450 C 1000 438 1020 438 1032 450 C 1020 462 1000 462 988 450 Z"/>
+    <path d="M 1208 450 C 1220 438 1240 438 1252 450 C 1240 462 1220 462 1208 450 Z"/>
+    <path d="M 1098 480 C 1110 468 1130 468 1142 480 C 1130 492 1110 492 1098 480 Z"/>
+  </g>
+  <!-- Throne shadow on floor -->
+  <ellipse cx="1120" cy="876" rx="200" ry="18" fill="#b87820" opacity=".06"/>
+
+  <!-- ═ BROKEN SCEPTRE — leaning on throne ═ -->
+  <g stroke="#b87820" stroke-width="2.2" opacity=".18" fill="none">
+    <line x1="1000" y1="420" x2="1000" y2="720"/>
+    <!-- Break at 580 -->
+    <path d="M 996 576 L 988 564 M 1004 572 L 1012 560"/>
+    <polygon points="1000,420 992,440 1008,440" fill="#b87820" opacity=".2" stroke="none"/>
+    <rect x="992" y="710" width="16" height="14" rx="3" fill="#b87820" opacity=".14" stroke="none"/>
+  </g>
+
+  <!-- ═ CITY WALLS — background ═ -->
+  <g fill="#b87820" opacity=".1">
+    <!-- Wall -->
+    <rect x="0" y="600" width="600" height="80"/>
+    <!-- Battlements (merlons) -->
+    <rect x="0" y="570" width="30" height="30"/>
+    <rect x="50" y="570" width="30" height="30"/>
+    <rect x="100" y="570" width="30" height="30"/>
+    <rect x="150" y="570" width="30" height="30"/>
+    <rect x="200" y="570" width="30" height="30"/>
+    <rect x="250" y="570" width="30" height="30"/>
+    <rect x="300" y="570" width="30" height="30"/>
+    <rect x="350" y="570" width="30" height="30"/>
+    <rect x="400" y="570" width="30" height="30"/>
+    <rect x="450" y="570" width="30" height="30"/>
+    <rect x="500" y="570" width="30" height="30"/>
+    <rect x="550" y="570" width="30" height="30"/>
+  </g>
+  <!-- Wall cracks -->
+  <g stroke="#8a1c1c" stroke-width="1.2" fill="none" opacity=".15">
+    <path d="M 120 570 L 116 600 L 124 640 L 118 680"/>
+    <path d="M 124 600 L 132 610 L 126 620"/>
+    <path d="M 340 570 L 336 610 L 344 650 L 338 680"/>
+    <path d="M 344 610 L 352 622 L 346 634"/>
+  </g>
+
+  <!-- ═ THREE GRAVE MOUNDS on horizon ═ -->
+  <g fill="#b87820" opacity=".14">
+    <ellipse cx="200" cy="682" rx="80" ry="24"/>
+    <path d="M 120 660 Q 200 632 280 660"/>
+    <ellipse cx="400" cy="674" rx="70" ry="20"/>
+    <path d="M 330 656 Q 400 630 470 656"/>
+    <ellipse cx="590" cy="680" rx="75" ry="22"/>
+    <path d="M 515 660 Q 590 634 665 660"/>
+  </g>
+  <!-- Small grave markers -->
+  <g stroke="#b87820" stroke-width="1.2" opacity=".18">
+    <line x1="200" y1="658" x2="200" y2="630"/>
+    <line x1="190" y1="640" x2="210" y2="640"/>
+    <line x1="400" y1="652" x2="400" y2="626"/>
+    <line x1="390" y1="636" x2="410" y2="636"/>
+    <line x1="590" y1="656" x2="590" y2="630"/>
+    <line x1="580" y1="640" x2="600" y2="640"/>
+  </g>
+
+  <!-- ═ LONE FIGURE — Créon, hunched, centre ═ -->
+  <g opacity=".1" fill="#0d1b3e">
+    <ellipse cx="720" cy="720" rx="22" ry="26"/>
+    <!-- Hunched body -->
+    <path d="M 698 744 C 692 770 688 800 686 840 L 752 840 C 750 800 746 770 742 744 Z"/>
+    <!-- Head bowed, hands on knees -->
+    <path d="M 698 775 C 680 780 670 796 674 808 L 686 806 C 684 796 690 784 698 782 Z"/>
+    <path d="M 742 775 C 760 780 770 796 766 808 L 754 806 C 756 796 750 784 742 782 Z"/>
+    <!-- Dropped crown -->
+    <path d="M 704 720 L 702 706 L 710 714 L 720 706 L 730 714 L 738 706 L 736 720"
+          fill="none" stroke="#b87820" stroke-width="1.4" opacity=".2"/>
+    <ellipse cx="720" cy="722" rx="18" ry="4" fill="none" stroke="#b87820" stroke-width="1" opacity=".15"/>
+  </g>
+
+  <!-- Scattered petals (fallen) -->
+  <g fill="#8a1c1c" opacity=".12">
+    <ellipse cx="820" cy="760" rx="8" ry="20" transform="rotate(45 820 760)"/>
+    <ellipse cx="848" cy="780" rx="7" ry="18" transform="rotate(-20 848 780)"/>
+    <ellipse cx="866" cy="752" rx="6" ry="16" transform="rotate(70 866 752)"/>
+    <ellipse cx="840" cy="740" rx="7" ry="17" transform="rotate(-50 840 740)"/>
+    <ellipse cx="876" cy="770" rx="5" ry="14" transform="rotate(30 876 770)"/>
+    <ellipse cx="824" cy="798" rx="6" ry="15" transform="rotate(-10 824 798)"/>
+  </g>
+</svg></div>
+
+  <div class="ss-side">
+    <div class="ss-side-top"></div>
+    <div class="ghost">X</div>
+    <div class="ss-side-inner">
+      <div>
+        <div class="v ss-step">10 &middot; Dixième séquence</div>
+        <div class="v ss-num">X</div>
+        <p class="v ss-stitle">L'Épilogue</p>
+      </div>
+      <div>
+        <div class="ss-chars-lbl v">Personnages</div>
+        <div class="v ss-char">Créon</div>
+        <div class="v ss-char">Le Prologue</div>
+        <div class="v ss-char">Les Gardes</div>
+      </div>
+    </div>
+  </div>
+  <div class="ss-main">
+    <div class="v ss-eyebrow">Séquence 10 &middot; Dénouement final</div>
+    <h2 class="v ss-heading">L'Épilogue — Créon Seul dans les Ruines</h2>
+    <div class="v ss-gl"><div class="grow-line"></div></div>
+    <div class="ss-body">
+      <p class="v">On annonce à <strong>Créon</strong> qu'Eurydice s'est tranchée la gorge en le maudissant — lui reprochant la mort de leur fils Hémon. Il se retrouve seul dans un palais vidé de toute vie, au milieu des décombres de tout ce qu'il aimait.</p>
+      <div class="v callout">
+        « C'est reposant, la tragédie. Dans la tragédie, on est tranquille. Parce qu'on sait qu'il n'y a plus d'espoir. »
+        <cite>— Créon</cite>
+      </div>
+      <p class="v">Et pourtant — il doit continuer. Un page vient lui rappeler qu'un conseil d'État l'attend. <strong>La machine du pouvoir ne s'arrête pas pour le deuil</strong>. Créon, vieilli de dix ans, se lève et sort vers ses devoirs de roi.</p>
+      <p class="v">Le <strong>Prologue</strong> revient pour fermer la pièce. Les gardes reprennent leur partie de cartes dans le coin. La ville dort. Le soleil se lève. <em>La vie continue, mécanique et indifférente</em>, après la mort des héros. C'est la vision la plus sombre d'Anouilh : l'héroïsme ne change rien à l'ordre du monde.</p>
+    </div>
+  </div></div>
+
+<!-- ══════════════════════════
+     SLIDE 12 · CONCLUSION
+══════════════════════════ -->
+<div class="slide" id="s12">
+
+<div class="deco"><svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="s12glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#e8b040" stop-opacity=".07"/>
+      <stop offset="100%" stop-color="#e8b040" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="s12left" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#8a1c1c" stop-opacity=".10"/>
+      <stop offset="100%" stop-color="#8a1c1c" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="s12right" x1="1" y1="0" x2="0" y2="0">
+      <stop offset="0%" stop-color="#0d1b3e" stop-opacity=".10"/>
+      <stop offset="100%" stop-color="#0d1b3e" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Subtle colour washes on far edges only -->
+  <rect x="0" y="0" width="180" height="900" fill="url(#s12left)"/>
+  <rect x="1260" y="0" width="180" height="900" fill="url(#s12right)"/>
+  <!-- Central glow — very subtle -->
+  <ellipse cx="720" cy="450" rx="500" ry="350" fill="url(#s12glow)"/>
+
+  <!-- ═ TOP MEANDER FRIEZE — stays in top 36px ═ -->
+  <rect x="0" y="0" width="1440" height="36" fill="#e8b040" opacity=".05"/>
+  <line x1="0" y1="36" x2="1440" y2="36" stroke="#e8b040" stroke-width="1.2" opacity=".25"/>
+  <g stroke="#e8b040" stroke-width="1.2" fill="none" opacity=".2">
+    <polyline points="80,4 96,4 96,20 110,20 110,4 126,4 126,20 140,20 140,4 156,4"/>
+    <polyline points="340,4 356,4 356,20 370,20 370,4 386,4 386,20 400,20 400,4 416,4"/>
+    <polyline points="600,4 616,4 616,20 630,20 630,4 646,4 646,20 660,20 660,4 676,4"/>
+    <polyline points="764,4 780,4 780,20 794,20 794,4 810,4 810,20 824,20 824,4 840,4"/>
+    <polyline points="1020,4 1036,4 1036,20 1050,20 1050,4 1066,4 1066,20 1080,20 1080,4 1096,4"/>
+    <polyline points="1280,4 1296,4 1296,20 1310,20 1310,4 1326,4 1326,20 1340,20 1340,4 1356,4"/>
+  </g>
+
+  <!-- ═ LEFT PILLAR — hugs the very left edge ═ -->
+  <rect x="0" y="36" width="18" height="864" fill="#8a1c1c" opacity=".08"/>
+  <line x1="18" y1="36" x2="18" y2="900" stroke="#8a1c1c" stroke-width=".8" opacity=".12"/>
+  <rect x="0" y="36" width="30" height="10" fill="#8a1c1c" opacity=".1"/>
+  <rect x="0" y="890" width="30" height="10" fill="#8a1c1c" opacity=".1"/>
+
+  <!-- ═ RIGHT PILLAR — hugs the very right edge ═ -->
+  <rect x="1422" y="36" width="18" height="864" fill="#e8b040" opacity=".08"/>
+  <line x1="1422" y1="36" x2="1422" y2="900" stroke="#e8b040" stroke-width=".8" opacity=".12"/>
+  <rect x="1410" y="36" width="30" height="10" fill="#e8b040" opacity=".1"/>
+  <rect x="1410" y="890" width="30" height="10" fill="#e8b040" opacity=".1"/>
+
+  <!-- ═ SCALES — pushed to very top, above content zone ═ -->
+  <!-- Central post -->
+  <line x1="720" y1="36" x2="720" y2="120" stroke="#e8b040" stroke-width="1.8" opacity=".2"/>
+  <!-- Beam at y=120 — stays in top band -->
+  <line x1="480" y1="120" x2="960" y2="120" stroke="#e8b040" stroke-width="2" opacity=".18"/>
+  <circle cx="720" cy="120" r="8" fill="#e8b040" opacity=".18"/>
+  <circle cx="720" cy="120" r="4" fill="#e8b040" opacity=".25"/>
+  <!-- Left scale chain + pan -->
+  <line x1="480" y1="120" x2="480" y2="180" stroke="#e8b040" stroke-width="1.2" opacity=".15"/>
+  <path d="M 420 180 Q 480 200 540 180" fill="none" stroke="#e8b040" stroke-width="1.4" opacity=".14"/>
+  <!-- Left pan: small flame -->
+  <path d="M 480 174 C 474 162 472 150 480 142 C 488 150 486 162 480 174 Z" fill="#8a1c1c" opacity=".22"/>
+  <!-- Right scale chain + pan -->
+  <line x1="960" y1="120" x2="960" y2="180" stroke="#e8b040" stroke-width="1.2" opacity=".15"/>
+  <path d="M 900 180 Q 960 200 1020 180" fill="none" stroke="#e8b040" stroke-width="1.4" opacity=".14"/>
+  <!-- Right pan: small crown -->
+  <g fill="none" stroke="#e8b040" stroke-width="1.4" opacity=".2">
+    <path d="M 936 180 L 934 164 L 942 172 L 960 158 L 978 172 L 986 164 L 984 180 Z"/>
+    <line x1="936" y1="180" x2="984" y2="180"/>
+  </g>
+
+  <!-- ═ CENTRAL DASHED DIVIDER — very faint ═ -->
+  <line x1="720" y1="200" x2="720" y2="900" stroke="#e8b040" stroke-width=".5" stroke-dasharray="6 14" opacity=".1"/>
+
+  <!-- Stars — top area only -->
+  <circle cx="140" cy="80" r="2" fill="#e8b040" opacity=".35"/>
+  <circle cx="380" cy="60" r="2.2" fill="#e8b040" opacity=".3"/>
+  <circle cx="560" cy="75" r="1.6" fill="#e8b040" opacity=".28"/>
+  <circle cx="720" cy="48" r="2.5" fill="#e8b040" opacity=".4"/>
+  <circle cx="880" cy="75" r="1.6" fill="#e8b040" opacity=".28"/>
+  <circle cx="1060" cy="60" r="2.2" fill="#e8b040" opacity=".3"/>
+  <circle cx="1300" cy="80" r="2" fill="#e8b040" opacity=".35"/>
+</svg></div>
+
+  <div class="concl-accent"></div>
+  <div class="concl-inner">
+    <p class="v concl-badge">Conclusion finale &middot; Analyse académique</p>
+    <h2 class="v concl-title">La Loi Morale contre la Loi Politique</h2>
+    <p class="v concl-sub">Le conflit fondateur au cœur de la tragédie d'Anouilh</p>
+    <div class="v concl-divider">
+      <div class="concl-dline"></div>
+      <span style="color:var(--gold);font-size:.9rem">&#9670;</span>
+      <div class="concl-dline"></div>
+    </div>
+    <div class="concl-text">
+      <p class="v"><em>Antigone</em> de Jean Anouilh est avant tout une méditation philosophique sur l'opposition irréductible entre <strong>deux conceptions absolues du monde</strong>. D'un côté, Antigone incarne la <em>loi morale</em> : une loi non écrite, divine, qui transcende toute autorité humaine — le devoir d'honorer ses morts, de rester fidèle à ses convictions, même au prix de sa vie.</p>
+      <p class="v">De l'autre, Créon incarne la <em>loi politique</em> : une loi humaine, pragmatique, qui exige le sacrifice de l'idéal individuel pour maintenir l'ordre collectif. Il n'est pas un tyran — il est un homme de gouvernement qui fait ce qu'il croit juste pour la cité, même si cela le détruit personnellement.</p>
+      <p class="v">La grandeur d'Anouilh réside dans le fait qu'<strong>il ne tranche jamais</strong> entre ces deux positions. Créon a raison selon la logique du pouvoir. Antigone a raison selon la logique de la conscience. Leur incompatibilité n'est pas un conflit entre le Bien et le Mal — c'est un conflit entre deux formes de vérité également légitimes et mutuellement destructrices.</p>
+      <p class="v">Cette ambiguïté fondamentale explique pourquoi la pièce, créée en 1944 sous l'Occupation nazie, fut lue simultanément comme une apologie de la Résistance <em>et</em> comme une justification de l'ordre collaborationniste. <strong>Anouilh revendiquait cette double lecture</strong> : elle fait la preuve que l'œuvre touche à quelque chose d'universel, qui dépasse tout contexte historique particulier.</p>
+    </div>
+    <div class="v concl-quote">
+      « Antigone ne dit pas non parce que c'est utile. Elle dit non parce qu'elle <em>ne peut pas</em> dire oui. C'est sa dignité absolue — et c'est aussi sa condamnation irrémédiable. »
+    </div>
+  </div>
+</div>
+
+</div></div><!-- /track /outer -->
+
+<script>
+/* ══════════════════════════════════════
+   CONFIG
+══════════════════════════════════════ */
+const TOTAL = 13;
+const TIPS  = [
+  'Couverture','Note Préliminaire','Le Prologue',
+  'Antigone & Nourrice','Antigone & Ismène','Antigone & Hémon',
+  'L\'Arrestation','Face-à-Face Créon','Ismène & Hémon',
+  'La Lettre','Le Messager','L\'Épilogue','Conclusion'
+];
+// Dark slides (navy background)
+const DARK_SLIDES = new Set([0, 12]);
+
+let cur   = 0;
+let busy  = false;
+
+/* ══════════════════════════════════════
+   INIT
+══════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', () => {
+  buildDots();
+  show(0, false);
+});
+
+/* ══════════════════════════════════════
+   DOTS
+══════════════════════════════════════ */
+function buildDots() {
+  const c = document.getElementById('dots');
+  for (let i = 0; i < TOTAL; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot';
+    d.setAttribute('data-tip', TIPS[i]);
+    d.addEventListener('click', () => goTo(i));
+    c.appendChild(d);
+  }
+}
+
+/* ══════════════════════════════════════
+   NAVIGATE
+══════════════════════════════════════ */
+function nav(dir) {
+  const n = cur + dir;
+  if (n >= 0 && n < TOTAL) goTo(n);
+}
+
+function goTo(idx) {
+  if (busy || idx === cur) return;
+  show(idx, true);
+}
+
+function show(idx, animate) {
+  busy = true;
+
+  // Remove active from current
+  const prev = document.getElementById('s' + cur);
+  if (prev) prev.classList.remove('active');
+
+  cur = idx;
+
+  // Move track
+  const track = document.getElementById('track');
+  const slideW = document.querySelector('.slide').offsetWidth;
+  track.style.transition = animate
+    ? `transform var(--dur) var(--ease)` : 'none';
+  track.style.transform = `translateX(${-cur * slideW}px)`;
+
+  // Activate new slide
+  setTimeout(() => {
+    const next = document.getElementById('s' + cur);
+    if (next) {
+      next.classList.add('active');
+      // Re-trigger grow-line
+      const gl = next.querySelector('.grow-line');
+      if (gl) {
+        gl.style.width = '0';
+        setTimeout(() => { gl.style.width = '100%'; }, 80);
+      }
+    }
+    refreshUI();
+  }, animate ? 200 : 0);
+
+  setTimeout(() => { busy = false; }, animate ? 950 : 60);
+}
+
+/* ══════════════════════════════════════
+   REFRESH UI
+══════════════════════════════════════ */
+function refreshUI() {
+  const dark = DARK_SLIDES.has(cur);
+
+  // Progress bar
+  const pct = TOTAL > 1 ? (cur / (TOTAL - 1)) * 100 : 0;
+  document.getElementById('bar-fill').style.width = pct + '%';
+
+  // Counter
+  document.getElementById('cn').textContent = cur + 1;
+  const ctr = document.getElementById('ctr');
+  ctr.className = dark ? 'dark' : 'light';
+
+  // Arrows
+  document.getElementById('aprev').disabled = cur === 0;
+  document.getElementById('anext').disabled = cur === TOTAL - 1;
+  document.getElementById('aprev').className = `arr ${dark ? 'dark-arr' : 'light-arr'}`;
+  document.getElementById('anext').className = `arr ${dark ? 'dark-arr' : 'light-arr'}`;
+
+  // Dots
+  const dots = document.getElementById('dots');
+  dots.className = dark ? 'dark-dots' : 'light-dots';
+  document.querySelectorAll('.dot').forEach((d, i) => {
+    d.classList.toggle('on', i === cur);
+  });
+
+  // Logo
+  document.getElementById('logo').className = dark ? 'dark-logo' : '';
+
+  // Hint
+  document.getElementById('hint').className = dark ? 'dark-hint' : 'light-hint';
+}
+
+/* ══════════════════════════════════════
+   KEYBOARD
+══════════════════════════════════════ */
+document.addEventListener('keydown', e => {
+  const map = {
+    ArrowRight:1, ArrowDown:1, PageDown:1, ' ':1,
+    ArrowLeft:-1, ArrowUp:-1, PageUp:-1
+  };
+  if (e.key in map) { e.preventDefault(); nav(map[e.key]); }
+  if (e.key === 'Home') goTo(0);
+  if (e.key === 'End')  goTo(TOTAL - 1);
+});
+
+/* ══════════════════════════════════════
+   TOUCH SWIPE
+══════════════════════════════════════ */
+let tx = 0, ty = 0;
+document.addEventListener('touchstart', e => {
+  tx = e.touches[0].clientX; ty = e.touches[0].clientY;
+}, {passive:true});
+document.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - tx;
+  const dy = e.changedTouches[0].clientY - ty;
+  if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 45) nav(dx < 0 ? 1 : -1);
+}, {passive:true});
+
+/* ══════════════════════════════════════
+   WHEEL
+══════════════════════════════════════ */
+let wcd = false;
+document.addEventListener('wheel', e => {
+  if (wcd) return;
+  if (e.target.closest('.ss-main,.intro-inner,.concl-inner')) return;
+  if (Math.abs(e.deltaY) < 35) return;
+  nav(e.deltaY > 0 ? 1 : -1);
+  wcd = true;
+  setTimeout(() => { wcd = false; }, 950);
+}, {passive:true});
+</script>
+
+<script>
+// Fix 100vh on mobile browsers (iOS Safari bottom bar issue)
+function setVH(){
+  const vh = window.innerHeight * .01;
+  document.documentElement.style.setProperty('--vh', vh + 'px');
+}
+setVH();
+window.addEventListener('resize', ()=>{
+  setVH();
+  // Reposition track immediately without animation after resize
+  const track = document.getElementById('track');
+  const slideW = document.querySelector('.slide').offsetWidth;
+  track.style.transition = 'none';
+  track.style.transform = `translateX(${-cur * slideW}px)`;
+});
+window.addEventListener('orientationchange', ()=>setTimeout(()=>{
+  setVH();
+  const track = document.getElementById('track');
+  const slideW = document.querySelector('.slide').offsetWidth;
+  track.style.transition = 'none';
+  track.style.transform = `translateX(${-cur * slideW}px)`;
+}, 200));
+</script>
+
+</body>
+</html>
